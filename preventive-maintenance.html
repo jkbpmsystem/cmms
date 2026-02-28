@@ -378,6 +378,19 @@ td{
 </div>
 
 </body>
+</script>
+  
+const currentPage = window.location.pathname.split("/").pop();
+const items = document.querySelectorAll(".side-item");
 
+items.forEach(item=>{
+  if(item.getAttribute("onclick")?.includes(currentPage)){
+    item.classList.add("active");
+  }
+});
+
+</script>
+</body>
 </html>
+
 
