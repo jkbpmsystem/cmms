@@ -478,30 +478,6 @@ async function resetPassword(){
   }
 }
 
-/*===========================
-====reg user===========
-===========================*/
-  async function register(){
-
-  const email = document.getElementById("regEmail").value;
-  const password = document.getElementById("regPass").value;
-
-  const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec",{
-    method:"POST",
-    body: JSON.stringify({
-      action:"register",
-      email:email,
-      password:password
-    })
-  });
-
-  const data = await res.json();
-
-  if(data.status==="registered"){
-    alert("Account created successfully");
-  }
-}
-
   /*===========================
 ====log in===========
 ===========================*/
@@ -523,16 +499,13 @@ async function login(){
 
   if(data.status === "success"){
 
-    // ✅ Simpan session
     sessionStorage.setItem("cmmsUser", email);
+    sessionStorage.setItem("cmmsRole", data.role);
 
-    // ✅ Redirect
     window.location.href = "dashboard.html";
 
-  }else if(data.status === "wrong_password"){
-    alert("Wrong Password");
   }else{
-    alert("Email not found");
+    alert("Invalid email or password");
   }
 }
 </script>
@@ -540,5 +513,6 @@ async function login(){
 </body>
 
 </html>
+
 
 
