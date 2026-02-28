@@ -308,6 +308,16 @@ td{
 </div>
 
 <script>
+
+ const currentPage = window.location.pathname.split("/").pop();
+const items = document.querySelectorAll(".side-item");
+
+items.forEach(item=>{
+  if(item.getAttribute("onclick")?.includes(currentPage)){
+    item.classList.add("active");
+  }
+});
+ 
 document.querySelector(".logo").onclick = function(){
   document.getElementById("sidebar").classList.toggle("collapsed");
 }
@@ -316,3 +326,4 @@ document.querySelector(".logo").onclick = function(){
 </body>
 
 </html>
+
