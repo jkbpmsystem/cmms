@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CMMS Enterprise Dashboard</title>
+<title>Dashboard</title>
+<link rel="icon" type="image/png" href="img/cube.png">
 
 <!-- FONT AWESOME -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -97,6 +98,12 @@ body{
   gap:15px;
 }
 
+.logout-btn{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+  
 .profile i{
   cursor:pointer;
   color:#7aa9c4;
@@ -240,7 +247,7 @@ td{
         <i class="fa-solid fa-bell"></i>
         <i class="fa-solid fa-user"></i>
         <span id="userDisplay"></span>
-        <button onclick="logout()">Logout</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
       </div>
     </div>
 
@@ -360,5 +367,6 @@ if(role !== "ADMIN"){
 </body>
 
 </html>
+
 
 
