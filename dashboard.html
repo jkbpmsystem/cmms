@@ -323,31 +323,35 @@ td{
 </div>
 
 <script>
+
+
+/* ===== PROTECT DASHBOARD ===== */
+const user = sessionStorage.getItem("cmmsUser");
+
+if(!user){
+  window.location.href = "index.html";
+}
+
+/* ===== DISPLAY USER ===== */
+document.getElementById("userDisplay").innerText = user;
+
+/* ===== SIDEBAR TOGGLE ===== */
 document.querySelector(".logo").onclick = function(){
   document.getElementById("sidebar").classList.toggle("collapsed");
 }
 
-<script>
-document.getElementById("userDisplay").innerText =
-  sessionStorage.getItem("cmmsUser");
-
-  /*session brower*/
-const user = sessionStorage.getItem("cmmsUser");
-
-if(!user){
-  // Kalau tak login, balik ke login
-  window.location.href = "index.html";
-}
-  
-/* log out*/
-  function logout(){
+/* ===== LOGOUT ===== */
+function logout(){
   sessionStorage.removeItem("cmmsUser");
   window.location.href="index.html";
 }
 
-</script>
+
+
+
 </script>
 
 </body>
 
 </html>
+
