@@ -346,6 +346,12 @@ function logout(){
   window.location.href="index.html";
 }
 
+const role = sessionStorage.getItem("cmmsRole");
+
+if(role !== "ADMIN"){
+   document.getElementById("adminMenu").style.display="none";
+}
+
 
 
 
@@ -354,4 +360,5 @@ function logout(){
 </body>
 
 </html>
+
 
