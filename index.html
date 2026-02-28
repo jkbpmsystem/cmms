@@ -483,12 +483,20 @@ async function resetPassword(){
 ===========================*/
 async function login(){
 
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPass").value.trim();
+  const emailField = document.getElementById("loginEmail");
+  const passField = document.getElementById("loginPass");
+
+  if(!emailField || !passField){
+    console.error("Login input not found");
+    return;
+  }
+
+  const email = emailField.value.trim();
+  const password = passField.value.trim();
 
   if(!email || !password){
     alert("Please enter email and password");
-    return; // ⛔ STOP DI SINI
+    return;
   }
 
   const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec",{
@@ -520,6 +528,7 @@ async function login(){
 </body>
 
 </html>
+
 
 
 
