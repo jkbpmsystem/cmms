@@ -11,7 +11,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family:'Segoe UI',sans-serif;
+ font-family:'Segoe UI',sans-serif;
   background:linear-gradient(135deg,#0a0f1c,#08101a 60%,#06101d);
   color:#d9f3ff;
   overflow-x:hidden;
@@ -46,16 +46,18 @@ body{
 }
 
 .side-item{
-  width:55px;
-  height:55px;
-  margin:10px 0;
+  width:100%;
+  padding:12px 0;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
   border-radius:15px;
   cursor:pointer;
   transition:0.3s;
   color:#7aa9c4;
+  font-size:11px;
+  gap:6px;
 }
 
 .side-item:hover{
@@ -64,10 +66,25 @@ body{
   transform:scale(1.1);
 }
 
-.side-item.active{
-  background:#00e5ff33;
-  color:#00e5ff;
-  box-shadow:0 0 15px #00e5ff55;
+.side-item span{
+  font-size:11px;
+  opacity:0.7;
+  transition:all 0.3s ease;
+}
+
+.sidebar.collapsed .side-item span{
+  opacity:0;
+  transform:translateY(-5px);
+  pointer-events:none;
+}
+
+.sidebar.collapsed .side-item{
+  gap:0;
+}
+
+.side-item{
+  text-decoration:none;
+  color:inherit;
 }
 
 /* ===== Main ===== */
@@ -90,22 +107,27 @@ body{
   color:#00e5ff;
   letter-spacing:1px;
 }
-
+  
 .profile{
   display:flex;
   align-items:center;
   gap:15px;
 }
 
-.profile i{
+.logout-btn{
+  padding:6px 14px;
+  border-radius:20px;
+  border:1px solid #00e5ff55;
+  background:transparent;
+  color:#00e5ff;
   cursor:pointer;
-  color:#7aa9c4;
+  transition:0.3s;
 }
 
-.profile span{
-  font-size:14px;
+.logout-btn:hover{
+  background:#00e5ff;
+  color:#000;
 }
-
 /* ===== KPI Cards ===== */
 .kpi-grid{
   display:grid;
@@ -292,4 +314,5 @@ document.querySelector(".logo").onclick = function(){
 </script>
 
 </body>
+
 </html>
