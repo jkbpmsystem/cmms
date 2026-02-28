@@ -486,7 +486,12 @@ async function login(){
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPass").value;
 
-  const res = await fetch("YOUR_WEB_APP_URL",{
+  if(!email || !password){
+    alert("Please fill all fields");
+    return;
+  }
+
+  const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec",{
     method:"POST",
     body: JSON.stringify({
       action:"login",
@@ -502,7 +507,12 @@ async function login(){
     sessionStorage.setItem("cmmsUser", email);
     sessionStorage.setItem("cmmsRole", data.role);
 
-    window.location.href = "dashboard.html";
+    // guna transition kalau nak
+    document.body.classList.add("fade-out");
+
+    setTimeout(()=>{
+      window.location.href="dashboard.html";
+    },800);
 
   }else{
     alert("Invalid email or password");
@@ -513,6 +523,7 @@ async function login(){
 </body>
 
 </html>
+
 
 
 
