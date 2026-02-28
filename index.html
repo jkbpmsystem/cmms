@@ -259,7 +259,7 @@ label{
       </div>
 
       <div class="input-group">
-        <label>Email</label>
+        <label>User Name</label>
         <div class="input-box">
           <input type="email" id="loginEmail" placeholder="Enter your email">
           <i class="fa-solid fa-envelope"></i>
@@ -274,11 +274,6 @@ label{
         </div>
       </div>
 
-      <div class="options">
-        <div><input type="checkbox"> Remember me</div>
-        <a href="#">Forgot password?</a>
-      </div>
-
       <button class="login-btn" onclick="login()">Login</button>
       
 
@@ -287,39 +282,6 @@ label{
     </div>
   </div>
 
-</div>
-
-<!-- Modal -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <div class="close" onclick="closeModal()">&times;</div>
-    <h3>Password Recovery</h3>
-
-    <!-- Step 1 -->
-    <div class="step active" id="step1">
-      <label>Enter Registered Email</label>
-      <input type="email" id="resetEmail">
-      <button onclick="sendOTP()">Send OTP</button>
-      <div class="error" id="emailError"></div>
-    </div>
-
-    <!-- Step 2 -->
-    <div class="step" id="step2">
-      <label>Enter OTP</label>
-      <input type="text" id="otpInput">
-      <button onclick="verifyOTP()">Verify OTP</button>
-      <div class="error" id="otpError"></div>
-    </div>
-
-    <!-- Step 3 -->
-    <div class="step" id="step3">
-      <label>New Password</label>
-      <input type="password" id="newPass">
-      <button onclick="resetPassword()">Reset Password</button>
-      <div class="success" id="resetSuccess"></div>
-    </div>
-
-  </div>
 </div>
 
 <script>
@@ -405,80 +367,6 @@ window.addEventListener("resize",()=>{
   canvas.height=window.innerHeight;
 });
 
-/*===========================
-=========sendOTP=============
-===========================*/
-
-async function sendOTP(){
-  const email = document.getElementById("resetEmail").value;
-
-  const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec", {
-    method:"POST",
-    body: JSON.stringify({
-      action:"sendOTP",
-      email:email
-    })
-  });
-
-  const data = await res.json();
-
-  if(data.status==="success"){
-    alert("OTP sent to email");
-  }else{
-    alert("Email not found");
-  }
-}
-
-/*===========================
-=========verify OTP==========
-===========================*/
-async function verifyOTP(){
-  const email = document.getElementById("resetEmail").value;
-  const otp = document.getElementById("otpInput").value;
-
-  const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec", {
-    method:"POST",
-    body: JSON.stringify({
-      action:"verifyOTP",
-      email:email,
-      otp:otp
-    })
-  });
-
-  const data = await res.json();
-
-  if(data.status==="verified"){
-    alert("OTP verified");
-  }else if(data.status==="expired"){
-    alert("OTP expired");
-  }else{
-    alert("Invalid OTP");
-  }
-}
-
-/*===========================
-====reset password===========
-===========================*/
-async function resetPassword(){
-  const email = document.getElementById("resetEmail").value;
-  const newPass = document.getElementById("newPass").value;
-
-  const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec", {
-    method:"POST",
-    body: JSON.stringify({
-      action:"resetPassword",
-      email:email,
-      newPassword:newPass
-    })
-  });
-
-  const data = await res.json();
-
-  if(data.status==="password_updated"){
-    alert("Password updated successfully");
-  }
-}
-
   /*===========================
 ====log in===========
 ===========================*/
@@ -529,6 +417,7 @@ async function login(){
 </body>
 
 </html>
+
 
 
 
