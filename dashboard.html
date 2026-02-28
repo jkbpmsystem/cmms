@@ -357,6 +357,8 @@ const role = sessionStorage.getItem("cmmsRole");
 
 if(role !== "ADMIN"){
    document.getElementById("adminMenu").style.display="none";
+  if(adminMenu){
+  adminMenu.style.display="none";
 }
 
 
@@ -367,6 +369,7 @@ if(role !== "ADMIN"){
 </body>
 
 </html>
+
 
 
 
