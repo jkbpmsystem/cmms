@@ -501,9 +501,44 @@ async function resetPassword(){
     alert("Account created successfully");
   }
 }
+
+  /*===========================
+====log in===========
+===========================*/
+async function login(){
+
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPass").value;
+
+  const res = await fetch("YOUR_WEB_APP_URL",{
+    method:"POST",
+    body: JSON.stringify({
+      action:"login",
+      email:email,
+      password:password
+    })
+  });
+
+  const data = await res.json();
+
+  if(data.status === "success"){
+
+    // ✅ Simpan session
+    sessionStorage.setItem("cmmsUser", email);
+
+    // ✅ Redirect
+    window.location.href = "dashboard.html";
+
+  }else if(data.status === "wrong_password"){
+    alert("Wrong Password");
+  }else{
+    alert("Email not found");
+  }
+}
 </script>
 
 </body>
 
 </html>
+
 
