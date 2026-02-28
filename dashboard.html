@@ -67,14 +67,16 @@ body{
   transform:scale(1.1);
 }
 
-.side-item.active{
-  background:#00e5ff33;
-  color:#00e5ff;
-  box-shadow:0 0 15px #00e5ff55;
+.side-item span{
+  font-size:11px;
+  opacity:0.7;
+  transition:0.3s;
 }
 
 .sidebar.collapsed .side-item span{
-  display:none;
+  opacity:0;
+  height:0;
+  overflow:hidden;
 }
 
 /* ===== Main ===== */
@@ -97,26 +99,11 @@ body{
   color:#00e5ff;
   letter-spacing:1px;
 }
-
-.profile{
-  display:flex;
-  align-items:center;
-  gap:15px;
-}
-
+  
 .logout-btn{
   display:flex;
   align-items:center;
   gap:15px;
-}
-  
-.profile i{
-  cursor:pointer;
-  color:#7aa9c4;
-}
-
-.profile span{
-  font-size:14px;
 }
   
 /* ===== KPI Cards ===== */
@@ -387,6 +374,7 @@ function logout(){
 </body>
 
 </html>
+
 
 
 
