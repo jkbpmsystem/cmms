@@ -245,27 +245,27 @@ td{
   <div class="logo"><i class="fa-solid fa-cube"></i></div>
 
   <div class="side-item active">
-    <i class="fa-solid fa-house"></i>
+    <i class="fa-solid fa-house" onclick="Dashboard()"></i>
     <span>Dashboard</span>
   </div>
 
   <div class="side-item">
-    <i class="fa-solid fa-box"></i>
+    <i class="fa-solid fa-box" onclick="Asset()"></i>
     <span>Assets</span>
   </div>
 
   <div class="side-item">
-    <i class="fa-solid fa-screwdriver-wrench"></i>
-    <span>Work Order</span>
+    <i class="fa-solid fa-screwdriver-wrench" onclick="Warranty()"></i>
+    <span>Warranty</span>
   </div>
 
   <div class="side-item">
-    <i class="fa-solid fa-calendar-days"></i>
+    <i class="fa-solid fa-calendar-days" onclick="PPM()"></i>
     <span>PPM</span>
   </div>
 
   <div class="side-item">
-    <i class="fa-solid fa-chart-line"></i>
+    <i class="fa-solid fa-chart-line" onclick="Report()"></i>
     <span>Reports</span>
   </div>
 </div>
@@ -383,14 +383,29 @@ function logout(){
   window.location.href="index.html";
 }
 
+/*==========Side Bar =======*/
+function Dashboard(){
+  window.location.href ="dashboard.html";
+}
 
+function Asset(){
+  window.location.href ="asset-master.html";
+}
 
+  function Warranty(){
+  window.location.href =page;
+}
 
+function PPM(){
+  window.location.href ="preventive-maintenance.html";
+}
+  
 </script>
 
 </body>
 
 </html>
+
 
 
 
