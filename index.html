@@ -259,9 +259,9 @@ label{
       </div>
 
       <div class="input-group">
-        <label>User Name</label>
+        <label>Username</label>
         <div class="input-box">
-          <input type="email" id="loginEmail" placeholder="Enter your user name">
+          <input type="email" id="loginUsername" placeholder="Enter your username">
           <i class="fa-solid fa-envelope"></i>
         </div>
       </div>
@@ -372,19 +372,11 @@ window.addEventListener("resize",()=>{
 ===========================*/
 async function login(){
 
-  const emailField = document.getElementById("loginEmail");
-  const passField = document.getElementById("loginPass");
+  const username = document.getElementById("loginUsername").value;
+  const password = document.getElementById("loginPass").value;
 
-  if(!emailField || !passField){
-    console.error("Login input not found");
-    return;
-  }
-
-  const email = emailField.value.trim();
-  const password = passField.value.trim();
-
-  if(!email || !password){
-    alert("Please enter email and password");
+  if(!username || !password){
+    alert("Please enter username and password");
     return;
   }
 
@@ -392,24 +384,24 @@ async function login(){
     method:"POST",
     body: JSON.stringify({
       action:"login",
-      email:email,
+      username:username,
       password:password
     })
   });
 
   const data = await res.json();
 
-  console.log("LOGIN RESPONSE:", data); // debug
+  console.log(data);
 
   if(data.status === "success"){
 
-    sessionStorage.setItem("cmmsUser", email);
+    sessionStorage.setItem("cmmsUser", username);
     sessionStorage.setItem("cmmsRole", data.role);
 
     window.location.href="dashboard.html";
 
   }else{
-    alert("Invalid email or password");
+    alert("Invalid username or password");
   }
 }
 </script>
@@ -417,6 +409,7 @@ async function login(){
 </body>
 
 </html>
+
 
 
 
