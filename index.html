@@ -483,12 +483,12 @@ async function resetPassword(){
 ===========================*/
 async function login(){
 
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPass").value;
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPass").value.trim();
 
   if(!email || !password){
-    alert("Please fill all fields");
-    return;
+    alert("Please enter email and password");
+    return; // ⛔ STOP DI SINI
   }
 
   const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec",{
@@ -502,17 +502,14 @@ async function login(){
 
   const data = await res.json();
 
+  console.log("LOGIN RESPONSE:", data); // debug
+
   if(data.status === "success"){
 
     sessionStorage.setItem("cmmsUser", email);
     sessionStorage.setItem("cmmsRole", data.role);
 
-    // guna transition kalau nak
-    document.body.classList.add("fade-out");
-
-    setTimeout(()=>{
-      window.location.href="dashboard.html";
-    },800);
+    window.location.href="dashboard.html";
 
   }else{
     alert("Invalid email or password");
@@ -523,6 +520,7 @@ async function login(){
 </body>
 
 </html>
+
 
 
 
