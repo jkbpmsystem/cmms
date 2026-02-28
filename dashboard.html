@@ -382,6 +382,15 @@ document.querySelector(".logo").onclick = function(){
   document.getElementById("sidebar").classList.toggle("collapsed");
 }
 
+const currentPage = window.location.pathname.split("/").pop();
+const items = document.querySelectorAll(".side-item");
+
+items.forEach(item=>{
+  if(item.getAttribute("onclick")?.includes(currentPage)){
+    item.classList.add("active");
+  }
+});
+
 /* ===== LOGOUT ===== */
 function logout(){
   sessionStorage.removeItem("cmmsUser");
@@ -410,6 +419,7 @@ function PPM(){
 </body>
 
 </html>
+
 
 
 
