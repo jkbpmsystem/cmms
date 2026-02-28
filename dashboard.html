@@ -104,10 +104,25 @@ body{
   letter-spacing:1px;
 }
   
-.logout-btn{
+.profile{
   display:flex;
   align-items:center;
   gap:15px;
+}
+
+.logout-btn{
+  padding:6px 14px;
+  border-radius:20px;
+  border:1px solid #00e5ff55;
+  background:transparent;
+  color:#00e5ff;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.logout-btn:hover{
+  background:#00e5ff;
+  color:#000;
 }
   
 /* ===== KPI Cards ===== */
@@ -261,9 +276,7 @@ td{
     <div class="topbar">
       <div class="title">CMMS SYSTEM</div>
       <div class="profile">
-        <i class="fa-solid fa-bell"></i>
-        <i class="fa-solid fa-user"></i>
-        <span id="userDisplay"></span>
+      <span id="userDisplay"></span>
         <button class="logout-btn" onclick="logout()">Logout</button>
       </div>
     </div>
@@ -378,6 +391,7 @@ function logout(){
 </body>
 
 </html>
+
 
 
 
