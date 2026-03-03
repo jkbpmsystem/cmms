@@ -322,7 +322,11 @@ td{
 
   <!-- ACTION BAR -->
   <div class="card action-bar" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
-    <button class="btn" onclick="addRow()">Add</button>
+    <a href="add-asset.html" class="side-item">
+   <i class="Add"</i>
+    <span>+ Add</span>
+  </a>
+     
     <button class="btn" onclick="deleteSelected()">Delete</button>
 
     <input type="text" id="searchBox" placeholder="Search..." onkeyup="searchTable()">
@@ -378,6 +382,7 @@ document.querySelector(".logo").onclick = function(){
 </body>
 
 </html>
+
 
 
 
