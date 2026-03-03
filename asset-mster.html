@@ -323,10 +323,7 @@ td{
 
   <!-- ACTION BAR -->
   <div class="card action-bar" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
-    <a href="add-asset.html" class="side-item">
-   <i class="Add"</i>
-    <span>+ Add</span>
-  </a>
+   <button class="btn" onclick="Add()">+Add</button>
      
     <button class="btn" onclick="deleteSelected()">Delete</button>
 
@@ -365,7 +362,11 @@ td{
 </div>
 
 <script>
-
+ 
+function Add(){
+  window.location.href ="add-asset.html";
+}
+ 
  const currentPage = window.location.pathname.split("/").pop();
 const items = document.querySelectorAll(".side-item");
 
@@ -378,11 +379,13 @@ items.forEach(item=>{
 document.querySelector(".logo").onclick = function(){
   document.getElementById("sidebar").classList.toggle("collapsed");
 }
+ 
 </script>
 
 </body>
 
 </html>
+
 
 
 
