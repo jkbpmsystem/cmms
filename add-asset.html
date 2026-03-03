@@ -243,20 +243,59 @@ input:focus,select:focus{
   <!-- ================= BASIC INFO ================= -->
   <div class="tab-pane active" id="basic">
 
-    <div class="form-grid">
+       <div class="form-grid">
       <!-- LEFT SIDE -->
       <div class="left-grid">
 
-        <!-- SEMUA CONTENT ASAL ANDA KEKAL DI SINI -->
-        <!-- Tak perlu ubah apa-apa -->
+        <div class="full">
+          <label>Asset Name</label>
+          <input type="text" id="assetName">
+        </div>
+
+        <div>
+          <label>Asset No</label>
+          <input type="text" id="assetNo">
+        </div>
+
+        <div>
+          <label>Category</label>
+          <select id="category">
+            <option>Mechanical</option>
+            <option>Electrical</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Critical Level</label>
+          <div class="critical">
+            <div class="crit-btn" onclick="setCritical('Low')">Low</div>
+            <div class="crit-btn active" onclick="setCritical('High')">High</div>
+          </div>
+        </div>
+
+        <div>
+          <label>Location</label>
+          <input type="text" id="location">
+        </div>
+
+        <div>
+          <label>Code Location</label>
+          <input type="text" id="codeLocation">
+        </div>
+        
+        <div>
+          <label>Installation Date</label>
+          <input type="date" id="installDate">
+        </div>
 
       </div>
 
-      <!-- RIGHT SIDE (IMAGE) KEKAL -->
+      <!-- RIGHT -->
       <div>
         <label>Upload Image</label>
         <div class="image-box">
-          <img src="https://images.unsplash.com/photo-1581091215367-59ab6b4a3b7b?auto=format&fit=crop&w=800&q=80">
+          <input type="file" id="assetImage">
           <button class="browse-btn">Browse</button>
         </div>
       </div>
@@ -379,6 +418,7 @@ document.querySelector('.btn-primary').addEventListener('click',()=>{
 </body>
 
 </html>
+
 
 
 
