@@ -78,6 +78,14 @@ body{
   border-bottom:2px solid #00e5ff;
 }
 
+.tab-pane{
+  display:none;
+}
+
+.tab-pane.active{
+  display:block;
+}
+
 /* Form Layout */
 .form-grid{
   display:grid;
@@ -218,96 +226,179 @@ input:focus,select:focus{
 
     <div class="form-grid">
 
+     <div class="tab-content">
+
+  <!-- ================= BASIC INFO ================= -->
+  <div class="tab-pane active" id="basic">
+
+    <div class="form-grid">
       <!-- LEFT SIDE -->
       <div class="left-grid">
 
         <div class="full">
           <label>Asset Name</label>
-          <input type="text" value="37kW Water Pump">
+          <input type="text" id="assetName">
         </div>
 
         <div>
-          <label>ID</label>
-          <input type="text" value="PUMP-04">
+          <label>Asset No</label>
+          <input type="text" id="assetNo">
         </div>
 
         <div>
           <label>Category</label>
-          <select><option>Pumps</option></select>
+          <select id="category">
+            <option>Mechanical</option>
+            <option>Electrical</option>
+            <option>Other</option>
+          </select>
         </div>
 
         <div class="full">
           <label>Critical Level</label>
           <div class="critical">
-            <div class="crit-btn">Low</div>
-            <div class="crit-btn active">High</div>
+            <div class="crit-btn" onclick="setCritical('Low')">Low</div>
+            <div class="crit-btn active" onclick="setCritical('High')">High</div>
           </div>
         </div>
 
         <div>
-          <label>Code Location</label>
-          <input type="text" value="L1-BEM-001">
+          <label>Location</label>
+          <input type="text" id="location">
         </div>
 
         <div>
-          <div class="full">
-          <label>Location</label>
-          <input type="text" value="">
+          <label>Code Location</label>
+          <input type="text" id="codeLocation">
         </div>
-
+        
         <div>
           <label>Installation Date</label>
-          <input type="date">
-        </div>
-
-        <div>
-          <label>Warranty Expiry</label>
-          <input type="date">
-        </div>
-
-        <div>
-          <label>Serial Number</label>
-          <input type="text" value="SPM-138587">
-        </div>
-
-        <div>
-          <label>Assigned To</label>
-          <input type="text" value="Ahmad">
-        </div>
-
-        <div>
-          <label>Purchase Price</label>
-          <input type="text" value="6,500">
-        </div>
-
-        <div class="full">
-          <label>Impact if Failure</label>
-          <input type="text" value="System Down">
+          <input type="date" id="installDate">
         </div>
 
       </div>
 
-      <!-- RIGHT SIDE -->
+      <!-- RIGHT -->
       <div>
         <label>Upload Image</label>
         <div class="image-box">
-          <img src="https://images.unsplash.com/photo-1581091215367-59ab6b4a3b7b?auto=format&fit=crop&w=800&q=80">
+          <input type="file" id="assetImage">
           <button class="browse-btn">Browse</button>
         </div>
       </div>
 
     </div>
 
-    <div class="modal-footer">
-      <button class="btn-cancel">Cancel</button>
-      <button class="btn-primary">Add Asset</button>
+  </div>
+
+  <!-- ================= PPM SCHEDULE ================= -->
+  <div class="tab-pane" id="ppm">
+
+    <div class="left-grid">
+
+      <div>
+        <label>Frequency</label>
+        <select id="ppmFrequency">
+          <option>Monthly</option>
+          <option>Quarterly</option>
+          <option>Half-Yearly</option>
+          <option>Yearly</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Next Due Date</label>
+        <input type="date" id="nextDue">
+      </div>
+
+      <div class="full">
+        <label>Checklist Description</label>
+        <input type="text" id="ppmChecklist">
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ================= DOCUMENTS ================= -->
+  <div class="tab-pane" id="documents">
+
+    <div class="full">
+      <label>Upload Document</label>
+      <input type="file" id="assetDoc" multiple>
+    </div>
+
+  </div>
+
+  <!-- ================= LINKED ASSETS ================= -->
+  <div class="tab-pane" id="linked">
+
+    <div class="full">
+      <label>Select Linked Asset</label>
+      <select id="linkedAsset">
+        <option>Booster Pump Panel</option>
+        <option>Main Water Tank</option>
+      </select>
     </div>
 
   </div>
 
 </div>
+      
+<script>
+  <script>
 
+function switchTab(element, tabId){
+
+  // remove active from all tab buttons
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.classList.remove('active');
+  });
+
+  element.classList.add('active');
+
+  // hide all tab panes
+  document.querySelectorAll('.tab-pane').forEach(pane=>{
+    pane.classList.remove('active');
+  });
+
+  document.getElementById(tabId).classList.add('active');
+}
+
+
+// Critical Toggle
+function setCritical(level){
+
+  document.querySelectorAll('.crit-btn').forEach(btn=>{
+    btn.classList.remove('active');
+  });
+
+  event.target.classList.add('active');
+}
+
+
+// Example Submit Integration
+document.querySelector('.btn-primary').addEventListener('click',()=>{
+
+  const assetData = {
+    name: document.getElementById('assetName').value,
+    no: document.getElementById('assetNo').value,
+    category: document.getElementById('category').value,
+    location: document.getElementById('location').value,
+    frequency: document.getElementById('ppmFrequency')?.value,
+    nextDue: document.getElementById('nextDue')?.value
+  };
+
+  console.log("Asset Data:", assetData);
+
+  alert("Asset Added Successfully!");
+});
+
+</script>
+</script>
 </body>
 
 </html>
+
 
