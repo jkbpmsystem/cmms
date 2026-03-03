@@ -243,59 +243,75 @@ input:focus,select:focus{
   <!-- ================= BASIC INFO ================= -->
   <div class="tab-pane active" id="basic">
 
-       <div class="form-grid">
       <!-- LEFT SIDE -->
       <div class="left-grid">
 
         <div class="full">
           <label>Asset Name</label>
-          <input type="text" id="assetName">
+          <input type="text" value="37kW Water Pump">
         </div>
 
         <div>
           <label>Asset No</label>
-          <input type="text" id="assetNo">
+          <input type="text" value="SZA">
         </div>
 
         <div>
           <label>Category</label>
-          <select id="category">
-            <option>Mechanical</option>
-            <option>Electrical</option>
-            <option>Other</option>
-          </select>
+          <select><option>Mechanical</option></select>
+          <select><option>Electrical</option></select>
         </div>
 
         <div class="full">
           <label>Critical Level</label>
           <div class="critical">
-            <div class="crit-btn" onclick="setCritical('Low')">Low</div>
-            <div class="crit-btn active" onclick="setCritical('High')">High</div>
+            <div class="crit-btn">Low</div>
+            <div class="crit-btn active">High</div>
           </div>
         </div>
 
         <div>
+          <label>Code Location</label>
+          <input type="text" value="L1-BEM-001">
+        </div>
+
+        <div class="full">
           <label>Location</label>
-          <input type="text" id="location">
+          <input type="text" value="">
         </div>
 
         <div>
-          <label>Code Location</label>
-          <input type="text" id="codeLocation">
-        </div>
-        
-        <div>
           <label>Installation Date</label>
-          <input type="date" id="installDate">
+          <input type="date">
+        </div>
+
+        <div>
+          <label>Warranty Expiry</label>
+          <input type="date">
+        </div>
+
+        <div>
+          <label>Serial Number</label>
+          <input type="text" value="SPM-138587">
+        </div>
+
+        <div>
+          <label>Assigned To</label>
+          <input type="text" value="">
+        </div>
+
+        <div>
+          <label>Purchase Price</label>
+          <input type="text" value="6,500">
         </div>
 
       </div>
 
-      <!-- RIGHT -->
+      <!-- RIGHT SIDE -->
       <div>
         <label>Upload Image</label>
         <div class="image-box">
-          <input type="file" id="assetImage">
+          <img src="https://images.unsplash.com/photo-1581091215367-59ab6b4a3b7b?auto=format&fit=crop&w=800&q=80">
           <button class="browse-btn">Browse</button>
         </div>
       </div>
@@ -418,6 +434,7 @@ document.querySelector('.btn-primary').addEventListener('click',()=>{
 </body>
 
 </html>
+
 
 
 
