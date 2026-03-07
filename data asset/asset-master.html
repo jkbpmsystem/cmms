@@ -396,6 +396,18 @@
             font-weight: 600;
             cursor: pointer;
         }
+/*modal detail*/
+        .detail-grid{
+        display:grid;
+        grid-template-columns:150px 1fr;
+        gap:8px;
+        font-size:13px;
+        margin-top:10px;
+        }
+
+        .detail-grid b{
+        color:#00e5ff;
+        }
 
         .location-group {
             position: relative;
@@ -623,7 +635,12 @@ function renderTable(){
 
     row.innerHTML = `
       <td></td>
-      <td>${asset.id || ""}</td>
+      <td>
+        <span style="cursor:pointer;color:#00e5ff"
+        onclick='showDetail(${JSON.stringify(asset)})'>
+        ${asset.id || ""}
+        </span>
+        </td>
       <td>${asset.assetNo || ""}</td>
       <td>${asset.assetName || ""}</td>
       <td>${asset.typeCode || ""}</td>
@@ -881,10 +898,25 @@ function formatDate(dateString){
             </div>
 
         </div>
+
+<div class="modal" id="detailModal">
+
+    <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>Asset Detail</h3>
+                <span class="close-btn" onclick="closeDetail()">&times;</span>
+                </div>
+
+            <div id="assetDetail"></div>
+
+            </div>
+        </div>
 </body>
 
 
 </html>
+
 
 
 
