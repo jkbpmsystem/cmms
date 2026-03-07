@@ -562,6 +562,50 @@
             function closeModal() {
                 document.getElementById("assetModal").style.display = "none";
             }
+
+            <script>
+
+const API_URL = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec";
+
+async function loadAssets(){
+
+  try{
+
+    const res = await fetch(API_URL + "?action=getAssets");
+    const data = await res.json();
+
+    const tbody = document.querySelector("#assetTable tbody");
+    tbody.innerHTML = "";
+
+    data.forEach(asset => {
+
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td></td>
+        <td>${asset.id}</td>
+        <td>${asset.assetNo}</td>
+        <td>${asset.typeCode}</td>
+        <td>${asset.description}</td>
+        <td>${asset.discipline}</td>
+        <td>${asset.location}</td>
+        <td>${asset.startWarranty}</td>
+        <td>${asset.endWarranty}</td>
+      `;
+
+      tbody.appendChild(row);
+
+    });
+
+  }catch(err){
+    console.error("Load Asset Error:", err);
+  }
+
+}
+
+document.addEventListener("DOMContentLoaded", loadAssets);
+
+</script>
         </script>
         <div class="modal" id="assetModal">
 
@@ -686,6 +730,7 @@
 
 
 </html>
+
 
 
 
