@@ -553,7 +553,7 @@
             const user = localStorage.getItem("user") || "Guest";
             document.getElementById("userDisplay").innerText = user;
 
-            const currentPage = window.location.pathname.split("/").pop();
+            const currentPath = window.location.pathname.split("/").pop();
             const items = document.querySelectorAll(".side-item");
 
             items.forEach(item => {
@@ -872,6 +872,7 @@ function populateFilters(){
 
 
 </html>
+
 
 
 
