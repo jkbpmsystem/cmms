@@ -801,7 +801,9 @@ function formatDate(dateString){
 }
 
 /*Modal detail*/
-function showDetail(asset){
+function showDetail(index){
+
+const asset = filteredData[index];
 
 document.getElementById("detailModal").style.display="flex";
 
@@ -984,6 +986,7 @@ document.getElementById("detailModal").style.display = "none";
 
 
 </html>
+
 
 
 
