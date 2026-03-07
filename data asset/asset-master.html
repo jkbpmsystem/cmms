@@ -542,8 +542,8 @@
                                 <th>Equipment Description</th>
                                 <th>Discipline</th>
                                 <th>Location</th>
-                                <th>Start Warranty</th>
-                                <th>End Warranty</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -647,8 +647,8 @@ function renderTable(){
       <td>${asset.equipmentDescription || ""}</td>
       <td>${asset.discipline || ""}</td>
       <td>${asset.location || ""}</td>
-      <td>${formatDate(asset.startWarranty || "")}</td>
-      <td>${formatDate(asset.endWarranty || "")}</td>
+      <td>${formatDate(asset.startDate || "")}</td>
+      <td>${formatDate(asset.endDate || "")}</td>
     `;
 
     tbody.appendChild(row);
@@ -961,6 +961,7 @@ document.getElementById("detailModal").style.display = "none";
 
 
 </html>
+
 
 
 
