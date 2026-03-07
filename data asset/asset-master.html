@@ -630,8 +630,8 @@ function renderTable(){
       <td>${asset.description || ""}</td>
       <td>${asset.discipline || ""}</td>
       <td>${asset.location || ""}</td>
-      <td>${formatDate(asset.startWarranty || ""}</td>
-      <td>${formatDate(asset.endWarranty || ""}</td>
+      <td>${formatDate(asset.startWarranty || "")}</td>
+      <td>${formatDate(asset.endWarranty || "")}</td>
     `;
 
     tbody.appendChild(row);
@@ -748,7 +748,8 @@ function populateFilters(){
     opt.textContent = l;
     locationSelect.appendChild(opt);
   });
-
+}
+    
 /*format tarikh*/
 function formatDate(dateString){
 
@@ -757,10 +758,8 @@ function formatDate(dateString){
   const date = new Date(dateString);
 
   return date.toLocaleDateString("en-GB");
-
 }
     
-}
 </script>
         
         <div class="modal" id="assetModal">
@@ -886,6 +885,7 @@ function formatDate(dateString){
 
 
 </html>
+
 
 
 
