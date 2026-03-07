@@ -776,6 +776,51 @@ function formatDate(dateString){
 
   return date.toLocaleDateString("en-GB");
 }
+
+/*Modal detail*/
+function showDetail(asset){
+
+document.getElementById("detailModal").style.display="flex";
+
+const detail=document.getElementById("assetDetail");
+
+detail.innerHTML=`
+
+<div class="detail-grid">
+
+<b>ID</b><div>${asset.id}</div>
+<b>Code Location</b><div>${asset.codeLocation}</div>
+<b>Area</b><div>${asset.area}</div>
+<b>Department</b><div>${asset.department}</div>
+<b>Asset No</b><div>${asset.assetNo}</div>
+<b>Asset No Hosza</b><div>${asset.assetNoHosza}</div>
+<b>Equipment Name</b><div>${asset.equipmentName}</div>
+<b>Type Code</b><div>${asset.typeCode}</div>
+<b>Description</b><div>${asset.equipmentDescriptions}</div>
+<b>Discipline</b><div>${asset.discipline}</div>
+<b>Bumi</b><div>${asset.bumi}</div>
+<b>Bumi Contact</b><div>${asset.bumiContact}</div>
+<b>Supplier</b><div>${asset.supplier}</div>
+<b>Supplier Contact</b><div>${asset.supplierContact}</div>
+<b>Manufacture</b><div>${asset.manufacture}</div>
+<b>Model</b><div>${asset.model}</div>
+<b>Serial Number</b><div>${asset.serialNumber}</div>
+<b>Price</b><div>${asset.price}</div>
+<b>LPO No</b><div>${asset.lpoNo}</div>
+<b>Category</b><div>${asset.category}</div>
+<b>Start Date</b><div>${formatDate(asset.startDate)}</div>
+<b>End Date</b><div>${formatDate(asset.endDate)}</div>
+<b>PPM Frequency</b><div>${asset.ppmFrequency}</div>
+
+</div>
+
+`;
+
+}
+
+function closeDetail(){
+document.getElementById("detailModal").style.display = "none";
+}
     
 </script>
         
@@ -916,6 +961,7 @@ function formatDate(dateString){
 
 
 </html>
+
 
 
 
