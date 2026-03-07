@@ -541,7 +541,8 @@
 
         <script>
             /* ===== DISPLAY USER ===== */
-            document.getElementById("userDisplay").innerText = user;
+            const user = localStorage.getItem("user") || "Guest";
+document.getElementById("userDisplay").innerText = user;
 
             const currentPage = window.location.pathname.split("/").pop();
             const items = document.querySelectorAll(".side-item");
@@ -730,6 +731,7 @@ document.addEventListener("DOMContentLoaded", loadAssets);
 
 
 </html>
+
 
 
 
