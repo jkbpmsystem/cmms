@@ -265,11 +265,12 @@
         }
 
         th {
-             position: sticky;
+            position: sticky;
             top: 0;
             background: #0b1421;
             border-bottom:2px solid #00e5ff55;
             backdrop-filter: blur(5px);
+            height:40px;
             th:nth-child(1){width:40px;}
             th:nth-child(2){width:70px;}
             th:nth-child(3){width:120px;}
@@ -301,6 +302,14 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+        }
+
+        tbody tr{
+            height:38px;
+        }
+
+        #assetTable{
+            min-height:600px;
         }
 
         /* ===== MODAL ===== */
@@ -547,7 +556,7 @@
                 </div>
 
                 <!-- TABLE -->
-                <div class="card" style="max-height:500px;overflow:auto">
+                <div class="card">
                     <table id="assetTable">
                         <thead>
                             <tr>
@@ -581,9 +590,6 @@
         </div>
 
         <script>
-            /* ===== DISPLAY USER ===== */
-            const user = localStorage.getItem("user") || "Guest";
-            document.getElementById("userDisplay").innerText = user;
 
             const currentPath = window.location.pathname.split("/").pop();
             const items = document.querySelectorAll(".side-item");
@@ -978,6 +984,7 @@ document.getElementById("detailModal").style.display = "none";
 
 
 </html>
+
 
 
 
