@@ -551,7 +551,7 @@
         <script>
             /* ===== DISPLAY USER ===== */
             const user = localStorage.getItem("user") || "Guest";
-document.getElementById("userDisplay").innerText = user;
+            document.getElementById("userDisplay").innerText = user;
 
             const currentPage = window.location.pathname.split("/").pop();
             const items = document.querySelectorAll(".side-item");
@@ -586,7 +586,7 @@ const rowsPerPage = 15;
 
 async function loadAssets(){
 
-  const res = await fetch(API_URL + "?action=getAssets");
+  const res = await fetch(API_URL + "?action=getAssets&t=" + Date.now());
   assetData = await res.json();
 
   filteredData = assetData;
@@ -871,6 +871,7 @@ function populateFilters(){
 
 
 </html>
+
 
 
 
