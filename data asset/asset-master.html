@@ -564,23 +564,21 @@
                 document.getElementById("assetModal").style.display = "none";
             }
 
-            <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec";
 
-const API_URL = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec";
+        async function loadAssets(){
 
-async function loadAssets(){
+      try{
 
-  try{
+        const res = await fetch(API_URL + "?action=getAssets");
+        const data = await res.json();
 
-    const res = await fetch(API_URL + "?action=getAssets");
-    const data = await res.json();
+        const tbody = document.querySelector("#assetTable tbody");
+        tbody.innerHTML = "";
 
-    const tbody = document.querySelector("#assetTable tbody");
-    tbody.innerHTML = "";
+        data.forEach(asset => {
 
-    data.forEach(asset => {
-
-      const row = document.createElement("tr");
+          const row = document.createElement("tr");
 
       row.innerHTML = `
         <td></td>
@@ -608,7 +606,7 @@ async function loadAssets(){
 document.addEventListener("DOMContentLoaded", loadAssets);
 
 </script>
-        </script>
+        
         <div class="modal" id="assetModal">
 
             <div class="modal-content">
@@ -732,6 +730,7 @@ document.addEventListener("DOMContentLoaded", loadAssets);
 
 
 </html>
+
 
 
 
