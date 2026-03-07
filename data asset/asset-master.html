@@ -271,9 +271,12 @@
             backdrop-filter: blur(5px);
         }
 
-        td {
-            padding: 14px 0;
-            border-bottom: 1px solid #00e5ff11;
+        td{
+            padding:14px 0;
+            border-bottom:1px solid #00e5ff11;
+            max-width:200px;
+            white-space:normal;
+            word-break:break-word;
         }
 
         .status {
@@ -627,8 +630,8 @@ function renderTable(){
       <td>${asset.description || ""}</td>
       <td>${asset.discipline || ""}</td>
       <td>${asset.location || ""}</td>
-      <td>${asset.startWarranty || ""}</td>
-      <td>${asset.endWarranty || ""}</td>
+      <td>${formatDate(asset.startWarranty || ""}</td>
+      <td>${formatDate(asset.endWarranty || ""}</td>
     `;
 
     tbody.appendChild(row);
@@ -746,6 +749,17 @@ function populateFilters(){
     locationSelect.appendChild(opt);
   });
 
+/*format tarikh*/
+function formatDate(dateString){
+
+  if(!dateString) return "";
+
+  const date = new Date(dateString);
+
+  return date.toLocaleDateString("en-GB");
+
+}
+    
 }
 </script>
         
@@ -872,6 +886,7 @@ function populateFilters(){
 
 
 </html>
+
 
 
 
