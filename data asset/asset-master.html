@@ -537,9 +537,9 @@
                                 <th></th>
                                 <th>ID</th>
                                 <th>Asset No</th>
-                                <th>Asset Name</th>
+                                <th>Equipment Name</th>
                                 <th>Type Code</th>
-                                <th>Description</th>
+                                <th>Equipment Description</th>
                                 <th>Discipline</th>
                                 <th>Location</th>
                                 <th>Start Warranty</th>
@@ -642,9 +642,9 @@ function renderTable(){
         </span>
         </td>
       <td>${asset.assetNo || ""}</td>
-      <td>${asset.assetName || ""}</td>
+      <td>${asset.equipmentName || ""}</td>
       <td>${asset.typeCode || ""}</td>
-      <td>${asset.description || ""}</td>
+      <td>${asset.equipmentDescription || ""}</td>
       <td>${asset.discipline || ""}</td>
       <td>${asset.location || ""}</td>
       <td>${formatDate(asset.startWarranty || "")}</td>
@@ -961,6 +961,7 @@ document.getElementById("detailModal").style.display = "none";
 
 
 </html>
+
 
 
 
