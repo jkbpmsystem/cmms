@@ -579,56 +579,57 @@
 
                         <div class="form-group">
                             <label>Asset Name</label>
-                            <input type="text" placeholder="Enter asset name">
+                            <input type="text" placeholder="Enter asset name" required>
                         </div>
 
                         <div class="form-group">
                             <label>Asset ID</label>
-                            <input type="text" placeholder="Enter asset ID">
+                            <input type="text" placeholder="Enter asset ID"required>
                         </div>
 
                         <div class="form-group">
                             <label>Type Code</label>
-                            <input type="text" placeholder="Enter type code">
+                            <input type="text" placeholder="Enter type code"required>
                         </div>
 
                         <div class="form-group">
                             <label>Manufacturer</label>
-                            <input type="text" placeholder="Enter manufacturer">
+                            <input type="text" placeholder="Enter manufacturer"required>
                         </div>
 
                         <div class="form-group">
                             <label>Model</label>
-                            <input type="text" placeholder="Enter model">
+                            <input type="text" placeholder="Enter model"required>
                         </div>
 
                         <div class="form-group">
                             <label>Serial Number</label>
-                            <input type="text" placeholder="Enter serial number">
+                            <input type="text" placeholder="Enter serial number"required>
                         </div>
                         <div class="form-group">
                             <label>Engine Number</label>
-                            <input type="text" placeholder="if applicable">
+                            <input type="text" placeholder="if applicable"required>
                         </div>
 
                         <div class="form-group">
                             <label>Body Number</label>
-                            <input type="text" placeholder="if applicable">
+                            <input type="text" placeholder="if applicable"required>
                         </div>
 
-                        <div class="form-group">
-                            <label>Category</label>
-                            <select>
+                      <div class="form-group">
+                          <label>Category</label>
+                          <select required>
+                                <option value="">Select Category</option>
                                 <option>Mechanical</option>
                                 <option>Electrical</option>
-                            </select>
-                        </div>
+                          </select>
+                    </div>
 
                         <div class="form-group location-group">
 
                             <label>Code Location</label>
 
-                            <input type="text" id="codeLocation" placeholder="L1-BEM-001" autocomplete="off" oninput="checkLocation(); this.value=this.value.toUpperCase();">
+                            <input type="text" id="codeLocation" placeholder="L1-BEM-001" required autocomplete="off" oninput="checkLocation(); this.value=this.value.toUpperCase();">
 
                             <div id="suggestions" class="suggestion-box"></div>
 
@@ -638,32 +639,32 @@
 
                         <div class="form-group">
                             <label>Bumi</label>
-                            <input type="text" placeholder="Enter supplier">
+                            <input type="text" placeholder="Enter supplier"required>
                         </div>
 
                         <div class="form-group">
                             <label>Bumi Contact</label>
-                            <input type="text" placeholder="Enter supplier">
+                            <input type="text" placeholder="Enter supplier"required>
                         </div>
 
                         <div class="form-group">
                             <label>Supplier</label>
-                            <input type="text" placeholder="Enter supplier">
+                            <input type="text" placeholder="Enter supplier"required>
                         </div>
 
                         <div class="form-group">
                             <label>Supplier Contact</label>
-                            <input type="text" placeholder="Enter supplier">
+                            <input type="text" placeholder="Enter supplier"required>
                         </div>
 
                         <div class="form-group">
                             <label>Start Date</label>
-                            <input type="date">
+                            <input type="date"required>
                         </div>
 
                         <div class="form-group">
                             <label>End Date</label>
-                            <input type="date">
+                            <input type="date"required>
                         </div>
 
                     </div>
@@ -679,3 +680,4 @@
 
 
 </html>
+
