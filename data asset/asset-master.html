@@ -503,9 +503,7 @@
                 <div class="card action-bar" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
                     <button class="btn" onclick="openModal()">Add Asset</button>
 
-                    <button class="btn" onclick="deleteSelected()">Delete</button>
-
-                    <input type="text" id="searchBox" placeholder="Search..." onkeyup="searchTable()">
+                   <input type="text" id="searchBox" placeholder="Search..." onkeyup="searchTable()">
 
                     <select id="filterDiscipline" onchange="filterTable()">
                         <option value="">All Discipline</option>
@@ -629,8 +627,10 @@
 
                             <label>Code Location</label>
 
-                            <input type="text" id="codeLocation" placeholder="L1-BEM-001" required autocomplete="off" oninput="checkLocation(); this.value=this.value.toUpperCase();">
-
+                            <input type="text" id="codeLocation" 
+                                placeholder="L1-BEM-001" required 
+                                autocomplete="off" 
+                                oninput="checkLocation(); this.value=this.value.toUpperCase();">
                             <div id="suggestions" class="suggestion-box"></div>
 
                             <small id="locationName"></small>
@@ -685,6 +685,7 @@
 
 
 </html>
+
 
 
 
