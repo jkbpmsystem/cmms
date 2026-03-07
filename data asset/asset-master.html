@@ -652,7 +652,7 @@ function renderTable(){
 
   const pageData = filteredData.slice(start,end);
 
-  pageData.forEach(asset => {
+  pageData.forEach((asset,index) => {
 
     const row = document.createElement("tr");
 
@@ -660,7 +660,7 @@ function renderTable(){
       <td></td>
       <td>
         <span style="cursor:pointer;color:#00e5ff"
-        onclick='showDetail(${JSON.stringify(asset)})'>
+        onclick="showDetail(${start + index})"
         ${asset.id || ""}
         </span>
         </td>
@@ -984,6 +984,7 @@ document.getElementById("detailModal").style.display = "none";
 
 
 </html>
+
 
 
 
