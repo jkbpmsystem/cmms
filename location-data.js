@@ -1,4 +1,4 @@
-const locations = [
+const locations = {
 
   /* MASTER AREA BASED ON CODE LOCATION */
 "L1-MEL-001":"Main Lobby,Waiting Area Corridor and Entrance Area",
@@ -2906,7 +2906,8 @@ const locations = [
 "RW":"ROYAL WARD",
 "SFT":"SHARED FACILITIES - TEACHING & LEARNING",
 "PA6":"PUBLIC AMENITIES LEVEL 6",
-
+  
+}
 
 
 
@@ -2941,3 +2942,4 @@ departmentMaster[deptCode];
 }
 
 }
+
