@@ -1,4 +1,4 @@
-const locations = {
+const locationMaster = {
 
   /* MASTER AREA BASED ON CODE LOCATION */
 "L1-MEL-001":"Main Lobby,Waiting Area Corridor and Entrance Area",
@@ -2839,10 +2839,9 @@ const locations = {
 "L6-PA-001":"Security Counter 1",
 "L5-PA-C001":"Corridor 1",
 "L5-PA-C002":"Corridor 2"
+}
 
-];
-
-
+const departmentMaster = {
 /*MASTER DEPARTMENT*/
 "MEL":"PUBLIC AMENITIES LEVEL 1 (+ MAIN ENTRANCE & LOBBY)",
 "MSU":"MEDICAL SOCIAL UNIT",
@@ -2942,4 +2941,5 @@ departmentMaster[deptCode];
 }
 
 }
+
 
