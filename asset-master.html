@@ -842,7 +842,62 @@ detail.innerHTML=`
 function closeDetail(){
 document.getElementById("detailModal").style.display = "none";
 }
-    
+
+/*Save*/
+async function saveAsset(){
+
+const data = {
+
+action:"saveAsset",
+
+id:document.getElementById("assetId").value,
+codeLocation:document.getElementById("codeLocation").value,
+area:document.getElementById("area").value,
+department:document.getElementById("department").value,
+assetNo:document.getElementById("assetNo").value,
+assetNoHosza:document.getElementById("assetNoHosza").value,
+equipmentName:document.getElementById("equipmentName").value,
+typeCode:document.getElementById("typeCode").value,
+equipmentDescriptions:document.getElementById("equipmentDescriptions").value,
+discipline:document.getElementById("discipline").value,
+bumi:document.getElementById("bumi").value,
+bumiContact:document.getElementById("bumiContact").value,
+supplier:document.getElementById("supplier").value,
+supplierContact:document.getElementById("supplierContact").value,
+manufacture:document.getElementById("manufacture").value,
+model:document.getElementById("model").value,
+serialNumber:document.getElementById("serialNumber").value,
+price:document.getElementById("price").value,
+lpoNo:document.getElementById("lpoNo").value,
+category:document.getElementById("category").value,
+startDate:document.getElementById("startDate").value,
+endDate:document.getElementById("endDate").value,
+ppmFrequency:document.getElementById("ppmFrequency").value
+
+};
+
+const res = await fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify(data)
+
+});
+
+const result = await res.json();
+
+if(result.status==="success"){
+
+alert("Asset saved");
+
+closeModal();
+
+loadAssets();
+
+}
+
+}
+            
 </script>
         
         <div class="modal" id="assetModal">
@@ -859,105 +914,128 @@ document.getElementById("detailModal").style.display = "none";
                     <div class="form-grid">
 
                         <div class="form-group">
-                            <label>Asset Name</label>
-                            <input type="text" placeholder="Enter asset name" required>
+                            <label>ID</label>
+                            <input id="id" type="text" placeholder="Enter asset name" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Asset ID</label>
-                            <input type="text" placeholder="Enter asset ID"required>
+                            <label>Code Location</label>
+                            <input id="codeLocation" type="text" placeholder="Enter asset name" required>
                         </div>
 
+                        <div class="form-group">
+                            <label>Area</label>
+                            <input id="area" type="text" placeholder="Enter asset ID"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Department</label>
+                            <input id="department"type="text" placeholder="Enter type code"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Asset No</label>
+                            <input id="assetNo" type="text" placeholder="Enter manufacturer"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Asset No Hosza</label>
+                            <input id="assetNoHosza" type="text" placeholder="Enter model"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Equipment Name</label>
+                            <input id="equipmentName" type="text" placeholder="Enter serial number"required>
+                        </div>
                         <div class="form-group">
                             <label>Type Code</label>
-                            <input type="text" placeholder="Enter type code"required>
+                            <input id="typeCode" type="text" placeholder="Enter Type Code"required>
                         </div>
 
                         <div class="form-group">
-                            <label>Manufacturer</label>
-                            <input type="text" placeholder="Enter manufacturer"required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Model</label>
-                            <input type="text" placeholder="Enter model"required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Serial Number</label>
-                            <input type="text" placeholder="Enter serial number"required>
-                        </div>
-                        <div class="form-group">
-                            <label>Engine Number</label>
-                            <input type="text" placeholder="if applicable"required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Body Number</label>
-                            <input type="text" placeholder="if applicable"required>
+                            <label>Equipment Descriptions</label>
+                            <input id="equipmentDescriptions" type="text" placeholder="Enter Equipment Descriptions"required>
                         </div>
 
                       <div class="form-group">
-                          <label>Category</label>
-                          <select required>
-                                <option value="">Select Category</option>
-                                <option>Mechanical</option>
-                                <option>Electrical</option>
-                          </select>
-                    </div>
+                            <label>Discipline</label>
 
-                        <div class="form-group location-group">
-
-                            <label>Code Location</label>
-
-                            <input type="text" id="codeLocation" 
-                                placeholder="L1-BEM-001" required 
-                                autocomplete="off" 
-                                oninput="checkLocation(); this.value=this.value.toUpperCase();">
-                            <div id="suggestions" class="suggestion-box"></div>
-
-                            <small id="locationName"></small>
+                            <select id="discipline" required>
+                                    <option value="">Select Discipline</option>
+                                    <option value="Mechanical">Mechanical</option>
+                                    <option value="Electrical">Electrical</option>
+                            </select>
 
                         </div>
 
                         <div class="form-group">
                             <label>Bumi</label>
-                            <input type="text" placeholder="Enter supplier"required>
+                            <input id="bumi" type="text" placeholder="if applicable"required>
                         </div>
 
                         <div class="form-group">
                             <label>Bumi Contact</label>
-                            <input type="text" placeholder="Enter supplier"required>
+                            <input id="bumiContact" type="text" placeholder="if applicable"required>
                         </div>
 
                         <div class="form-group">
                             <label>Supplier</label>
-                            <input type="text" placeholder="Enter supplier"required>
+                            <input id="supplier" type="text" placeholder="if applicable"required>
                         </div>
 
                         <div class="form-group">
                             <label>Supplier Contact</label>
-                            <input type="text" placeholder="Enter supplier"required>
+                            <input id="supplierContact" type="text" placeholder="if applicable"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Manufacturer</label>
+                            <input id="manufacturer" type="text" placeholder="if applicable"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Model</label>
+                            <input id="model" type="text" placeholder="if applicable"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Serial Number</label>
+                            <input id="serialNumber" type="text" placeholder="if applicable"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input id="price" type="text" placeholder="if applicable"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>LPO No</label>
+                            <input id="lpoNo"type="text" placeholder="if applicable"required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Category</label>
+                            <input id="category" type="text" placeholder="ASSET or INVENTORY"required>
                         </div>
 
                         <div class="form-group">
                             <label>Start Date</label>
-                            <input type="date"required>
+                            <input id="startDate" type="date"required>
                         </div>
 
                         <div class="form-group">
                             <label>End Date</label>
-                            <input type="date"required>
+                            <input id="endDate" type="date"required>
                         </div>
 
-                        <div class="form-group">
+                       <div class="form-group">
                             <label>Frequency PPM by Vendor *base on T&C*</label>
-                            <input type="date"required>
+                            <input id="pppFrequency" type="date"required>
                         </div>
 
                     </div>
 
-                    <button class="save-btn">Save Asset</button>
+                    <button class="save-btn" onclick="saveAsset()">Save Asset</button>
 
                 </div>
 
@@ -982,6 +1060,7 @@ document.getElementById("detailModal").style.display = "none";
 
 
 </html>
+
 
 
 
