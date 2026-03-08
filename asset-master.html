@@ -563,7 +563,7 @@
                                 <th>Type Code</th>
                                 <th>Equipment Descriptions</th>
                                 <th>Discipline</th>
-                                <th>Location</th>
+                                <th>Code Location</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
                             </tr>
@@ -665,7 +665,7 @@ function renderTable(){
       <td>${asset.typeCode || ""}</td>
       <td>${asset.equipmentDescriptions || ""}</td>
       <td>${asset.discipline || ""}</td>
-      <td>${asset.location || ""}</td>
+      <td>${asset.codeLocation || ""}</td>
       <td>${formatDate(asset.startDate || "")}</td>
       <td>${formatDate(asset.endDate || "")}</td>
     `;
@@ -982,6 +982,7 @@ document.getElementById("detailModal").style.display = "none";
 
 
 </html>
+
 
 
 
