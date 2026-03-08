@@ -603,8 +603,12 @@
                 document.getElementById("sidebar").classList.toggle("collapsed");
             }
 
-            function openModal() {
-                document.getElementById("assetModal").style.display = "flex";
+            function openModal(){
+
+                document.getElementById("assetModal").style.display="flex";
+
+                    generateAssetId();
+
             }
 
             function closeModal() {
@@ -1077,6 +1081,7 @@ document.getElementById("assetId").value = data.id;
 
 
 </html>
+
 
 
 
