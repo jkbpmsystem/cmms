@@ -899,6 +899,17 @@ loadAssets();
 }
 
 }
+
+/*GENERATE ID*/
+async function generateAssetId(){
+
+const res = await fetch(API_URL + "?action=generateId");
+
+const data = await res.json();
+
+document.getElementById("assetId").value = data.id;
+
+}
             
 </script>
         
@@ -1065,6 +1076,7 @@ loadAssets();
 
 
 </html>
+
 
 
 
