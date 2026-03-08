@@ -492,8 +492,10 @@
             color: #000;
         }
     </style>
+    <script src="location-data.js"></script>
+    
 </head>
-
+  
 <body>
 
     <div class="wrapper">
@@ -920,17 +922,20 @@ loadAssets();
 
                         <div class="form-group">
                             <label>Code Location</label>
-                            <input id="codeLocation" type="text" placeholder="Enter asset name" required>
+                            <input type="text"
+                                id="codeLocation"
+                                placeholder="L1-BEM-001"
+                                oninput="checkLocation(); this.value=this.value.toUpperCase();">
                         </div>
 
                         <div class="form-group">
                             <label>Area</label>
-                            <input id="area" type="text" placeholder="Enter asset ID"required>
+                            <input type="text" id="area" readonly>
                         </div>
 
                         <div class="form-group">
                             <label>Department</label>
-                            <input id="department"type="text" placeholder="Enter type code"required>
+                            <input type="text" id="department" readonly>
                         </div>
 
                         <div class="form-group">
@@ -1060,6 +1065,7 @@ loadAssets();
 
 
 </html>
+
 
 
 
