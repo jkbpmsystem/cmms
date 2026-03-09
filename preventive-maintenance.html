@@ -2,11 +2,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CMMS - PPM</title>
+<title>PPM</title>
 <link rel="icon" type="image/png" href="img/cube.png">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
@@ -172,6 +175,11 @@ body{
   margin-bottom:25px;
 }
 
+  #calendar{
+  max-width:1100px;
+  margin:40px auto;
+}
+  
 .calendar-header{
   font-size:18px;
   margin-bottom:15px;
@@ -310,7 +318,7 @@ td{
     </div>
 
     <!-- Calendar -->
-    <div class="calendar-box">
+    <div id="calendar"></div>
       <div class="calendar-header">April 2024</div>
 
       <div class="calendar-grid">
@@ -387,9 +395,42 @@ items.forEach(item=>{
   }
 });
 
+/*Calendar*/
+document.addEventListener('DOMContentLoaded', function() {
+
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+
+    initialView: 'dayGridMonth',
+
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+
+    events: [
+      {
+        title: 'PM AHU',
+        start: '2026-03-10'
+      },
+      {
+        title: 'Service Chiller',
+        start: '2026-03-15'
+      }
+    ]
+
+  });
+
+  calendar.render();
+
+});
+  
 </script>
 </body>
 </html>
+
 
 
 
