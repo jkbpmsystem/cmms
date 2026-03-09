@@ -746,12 +746,12 @@ function searchTable(){
 function filterTable(){
 
   const discipline = document.getElementById("filterDiscipline").value;
-  const location = document.getElementById("filterLocation").value;
+  const codelocation = document.getElementById("filtercodeLocation").value;
 
   filteredData = assetData.filter(a =>
 
       (discipline==="" || a.discipline===discipline) &&
-      (location==="" || a.location===location)
+      (codelocation==="" || a.codelocation===codelocation)
 
   );
 
@@ -768,15 +768,15 @@ function filterTable(){
 function populateFilters(){
 
   const disciplineSet = new Set();
-  const locationSet = new Set();
+  const codelocationSet = new Set();
 
   assetData.forEach(a=>{
     disciplineSet.add(a.discipline);
-    locationSet.add(a.location);
+    codelocationSet.add(a.codelocation);
   });
 
   const disciplineSelect = document.getElementById("filterDiscipline");
-  const locationSelect = document.getElementById("filterLocation");
+  const codelocationSelect = document.getElementById("filtercodeLocation");
 
   disciplineSet.forEach(d=>{
     const opt = document.createElement("option");
@@ -785,11 +785,11 @@ function populateFilters(){
     disciplineSelect.appendChild(opt);
   });
 
-  locationSet.forEach(l=>{
+  codelocationSet.forEach(l=>{
     const opt = document.createElement("option");
     opt.value = l;
     opt.textContent = l;
-    locationSelect.appendChild(opt);
+    codelocationSelect.appendChild(opt);
   });
 }
     
@@ -1081,6 +1081,7 @@ document.getElementById("assetId").value = data.id;
 
 
 </html>
+
 
 
 
