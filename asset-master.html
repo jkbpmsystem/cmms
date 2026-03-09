@@ -745,20 +745,21 @@ function searchTable(){
 
 function filterTable(){
 
-  const discipline = document.getElementById("filterDiscipline").value;
-  const codelocation = document.getElementById("filtercodeLocation").value;
+const discipline = document.getElementById("filterDiscipline").value;
+const codelocation = document.getElementById("filtercodeLocation").value;
 
-  filteredData = assetData.filter(a =>
+filteredData = assetData.filter(a =>
 
-      (discipline==="" || a.discipline===discipline) &&
-      (codelocation==="" || a.codelocation===codelocation)
+(discipline==="" || a.discipline===discipline) &&
+(codelocation==="" || a.codeLocation===codelocation)
 
-  );
+);
 
-  currentPage = 1;
+currentPage = 1;
 
-  renderTable();
-  renderPagination();
+renderTable();
+renderPagination();
+
 }
 
 
@@ -767,30 +768,33 @@ function filterTable(){
 
 function populateFilters(){
 
-  const disciplineSet = new Set();
-  const codelocationSet = new Set();
+const disciplineSet = new Set();
+const codelocationSet = new Set();
 
-  assetData.forEach(a=>{
-    disciplineSet.add(a.discipline);
-    codelocationSet.add(a.codelocation);
-  });
+assetData.forEach(a=>{
+disciplineSet.add(a.discipline);
+codelocationSet.add(a.codeLocation);
+});
 
-  const disciplineSelect = document.getElementById("filterDiscipline");
-  const codelocationSelect = document.getElementById("filtercodeLocation");
+const disciplineSelect = document.getElementById("filterDiscipline");
+const codelocationSelect = document.getElementById("filtercodeLocation");
 
-  disciplineSet.forEach(d=>{
-    const opt = document.createElement("option");
-    opt.value = d;
-    opt.textContent = d;
-    disciplineSelect.appendChild(opt);
-  });
+disciplineSet.forEach(d=>{
+const opt=document.createElement("option");
+opt.value=d;
+opt.textContent=d;
+disciplineSelect.appendChild(opt);
+});
 
-  codelocationSet.forEach(l=>{
-    const opt = document.createElement("option");
-    opt.value = l;
-    opt.textContent = l;
+codelocationSet.forEach(l=>{
+const opt=document.createElement("option");
+opt.value=l;
+opt.textContent=l;
+if(codelocationSelect){
     codelocationSelect.appendChild(opt);
-  });
+}
+});
+
 }
     
 /*format tarikh*/
@@ -1081,6 +1085,7 @@ document.getElementById("assetId").value = data.id;
 
 
 </html>
+
 
 
 
