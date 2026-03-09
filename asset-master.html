@@ -312,6 +312,11 @@
             min-height:600px;
         }
 
+        /*pagination*/
+        #pagination button{
+            min-width:35px;
+        }
+
         /* ===== MODAL ===== */
 
         .modal {
@@ -697,7 +702,32 @@ function renderPagination(){
 
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
-  for(let i=1;i<=totalPages;i++){
+  const maxVisible = 5; // berapa page nak tunjuk
+  let startPage = Math.max(1, currentPage - 2);
+  let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+
+  if(endPage - startPage < maxVisible - 1){
+    startPage = Math.max(1, endPage - maxVisible + 1);
+  }
+
+  // PREV BUTTON
+  if(currentPage > 1){
+
+    const prev = document.createElement("button");
+    prev.innerText = "Prev";
+    prev.className = "btn";
+
+    prev.onclick = () =>{
+      currentPage--;
+      renderTable();
+      renderPagination();
+    };
+
+    pageBox.appendChild(prev);
+  }
+
+  // PAGE NUMBERS
+  for(let i=startPage;i<=endPage;i++){
 
     const btn = document.createElement("button");
 
@@ -716,7 +746,22 @@ function renderPagination(){
     };
 
     pageBox.appendChild(btn);
+  }
 
+  // NEXT BUTTON
+  if(currentPage < totalPages){
+
+    const next = document.createElement("button");
+    next.innerText = "Next";
+    next.className = "btn";
+
+    next.onclick = ()=>{
+      currentPage++;
+      renderTable();
+      renderPagination();
+    };
+
+    pageBox.appendChild(next);
   }
 
 }
@@ -1092,6 +1137,7 @@ document.getElementById("assetId").value = data.id;
 
 
 </html>
+
 
 
 
