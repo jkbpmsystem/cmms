@@ -843,6 +843,7 @@ detail.innerHTML=`
 <b>Start Date</b><div>${formatDate(asset.startDate)}</div>
 <b>End Date</b><div>${formatDate(asset.endDate)}</div>
 <b>PPM Frequency</b><div>${asset.ppmFrequency}</div>
+<b>Status dalam kontrak Edgenta</b><div>${asset.status}</div>
 
 </div>
 
@@ -883,7 +884,8 @@ lpoNo:document.getElementById("lpoNo").value,
 category:document.getElementById("category").value,
 startDate:document.getElementById("startDate").value,
 endDate:document.getElementById("endDate").value,
-ppmFrequency:document.getElementById("ppmFrequency").value
+ppmFrequency:document.getElementById("ppmFrequency").value,
+status:document.getElementById("status").value
 
 };
 
@@ -1058,6 +1060,11 @@ document.getElementById("assetId").value = data.id;
                             <input id="ppmFrequency" type="text" placeholder="Enter Frequency"required>
                         </div>
 
+                        <div class="form-group">
+                            <label>Status dalam kontrak Edgenta</label>
+                            <input id="status" type="text" placeholder="YES / NO" required>
+                        </div>
+
                     </div>
 
                     <button class="save-btn" onclick="saveAsset()">Save Asset</button>
@@ -1085,6 +1092,7 @@ document.getElementById("assetId").value = data.id;
 
 
 </html>
+
 
 
 
