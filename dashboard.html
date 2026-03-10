@@ -307,58 +307,41 @@ td{
       </div>
 
       <div class="card">
-        <i class="fa-solid fa-calendar-check green"></i>
+        <i class="fa-solid fa-calendar-check yellow"></i>
         <div class="card-title">Upcoming PM</div>
-        <div class="card-value green" id="upcomingCount">0</div>
+        <div class="card-value yellow" id="upcomingCount">0</div>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-calendar-check orange"></i>
+        <div class="card-title">PM This Month</div>
+        <div class="card-value orange" id="monthPM">0</div>
+      </div>
+
+      <div class="card">
+        <i class="fa-solid fa-calendar-check green"></i>
+        <div class="card-title">Completed PM</div>
+        <div class="card-value green" id="completedCount">0</div>
       </div>
     </div>
 
     <!-- Charts -->
     <div class="chart-grid">
       <div class="chart-box">
-        <div class="chart-title">Work Orders Trend</div>
+        <div class="chart-title">PM Trend</div>
         <canvas></canvas>
       </div>
 
       <div class="chart-box">
-        <div class="chart-title">Breakdown vs Preventive</div>
+        <div class="chart-title">JKB vs Edgenta</div>
         <canvas></canvas>
       </div>
   </div>
 
     <!-- Table -->
     <div class="table-box">
-      <div class="chart-title">Recent Work Orders</div>
-      <table>
-        <tr>
-          <th>WO</th>
-          <th>Asset</th>
-          <th>Status</th>
-          <th>Assigned</th>
-          <th>Due</th>
-        </tr>
-        <tr>
-          <td>WO-1034</td>
-          <td>MRI Scanner</td>
-          <td><span class="status progress">In Progress</span></td>
-          <td>Ali</td>
-          <td>25-Jan-2024</td>
-        </tr>
-        <tr>
-          <td>WO-1031</td>
-          <td>AC Unit</td>
-          <td><span class="status overdue">Overdue</span></td>
-          <td>Siti</td>
-          <td>22-Jan-2024</td>
-        </tr>
-        <tr>
-          <td>WO-1025</td>
-          <td>Generator</td>
-          <td><span class="status complete">Complete</span></td>
-          <td>Azman</td>
-          <td>20-Jan-2024</td>
-        </tr>
-      </table>
+      <div class="chart-title">Due PPM</div>
+     
     </div>
 
   </div>
@@ -415,52 +398,23 @@ function PPM(){
 }
 
 /*LOAD sheet*/
-const API_URL = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec";
-
-const ASSET_API = API_URL + "?action=getAssets";
-const DW_API = API_URL + "?action=getDW";
 async function loadDashboard(){
 
-const dwRes = await fetch(DW_API);
-const dwData = await dwRes.json();
-console.log("DW DATA:", dwData);
-  
-const assetRes = await fetch(ASSET_API);
+const dashRes = await fetch(API_URL + "?action=getDashboard");
+const dashData = await dashRes.json();
+
+const assetRes = await fetch(API_URL + "?action=getAssets");
 const assetData = await assetRes.json();
 
-let today = new Date();
-today.setHours(0,0,0,0);
+document.getElementById("overdueCount").innerText = dashData.overdue;
+document.getElementById("upcomingCount").innerText = dashData.upcoming;
+document.getElementById("completedCount").innerText = dashData.completed;
+document.getElementById("monthPM").innerText = dashData.thisMonth;
 
-let limit = new Date();
-limit.setDate(today.getDate()+30);
-
-let overdue = 0;
-let upcoming = 0;
-
-dwData.forEach(pm=>{
-
-if(pm.status !== "Completed" && pm.date){
-
-let d = new Date(pm.date.replace(/-/g,"/"));
-d.setHours(0,0,0,0);
-
-if(d < today){
-overdue++;
-}
-else if(d >= today && d <= limit){
-upcoming++;
-}
+document.getElementById("totalAssets").innerText = assetData.length;
 
 }
-
-});
-
-document.getElementById("overdueCount").textContent = overdue;
-document.getElementById("upcomingCount").textContent = upcoming;
-document.getElementById("totalAssets").textContent = assetData.length;
-
-}
-
+  
 document.addEventListener("DOMContentLoaded", loadDashboard);
   
 </script>
@@ -468,6 +422,7 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 </body>
 
 </html>
+
 
 
 
