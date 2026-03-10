@@ -398,6 +398,8 @@ function PPM(){
 }
 
 /*LOAD sheet*/
+const API_URL = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec";
+
 async function loadDashboard(){
 
 const dashRes = await fetch(API_URL + "?action=getDashboard");
@@ -422,6 +424,7 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 </body>
 
 </html>
+
 
 
 
