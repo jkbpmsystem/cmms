@@ -417,51 +417,45 @@ function PPM(){
 /*LOAD sheet*/
 async function loadDashboard(){
 
-  const today = new Date();
-  today.setHours(0,0,0,0);
+const dwRes = await fetch(DW_API);
+const dwData = await dwRes.json();
 
-  const limit = new Date();
-  limit.setDate(today.getDate() + 30);
+const assetRes = await fetch(ASSET_API);
+const assetData = await assetRes.json();
 
-  let overdue = 0;
-  let upcoming = 0;
+let today = new Date();
+today.setHours(0,0,0,0);
 
-  /* ===== LOAD DW (PM DATA) ===== */
-  const dwRes = await fetch(DW_API);
-  const dwData = await dwRes.json();
+let limit = new Date();
+limit.setDate(today.getDate()+30);
 
-  dwData.forEach(pm=>{
+let overdue = 0;
+let upcoming = 0;
 
-    if(pm.status !== "Completed"){
+dwData.forEach(pm=>{
 
-      const d = new Date(pm.date);
-      d.setHours(0,0,0,0);
+if(pm.status !== "Completed"){
 
-      if(d < today){
-        overdue++;
-      }
+let d = new Date(pm.date);
+d.setHours(0,0,0,0);
 
-      if(d >= today && d <= limit){
-        upcoming++;
-      }
+if(d < today){
+overdue++;
+}
 
-    }
-
-  });
-
-  /* ===== LOAD ASSET ===== */
-  const assetRes = await fetch(ASSET_API);
-  const assetData = await assetRes.json();
-
-  const totalAssets = assetData.length;
-
-  /* ===== UPDATE DASHBOARD ===== */
-  document.getElementById("overdueCount").innerText = overdue;
-  document.getElementById("upcomingCount").innerText = upcoming;
-  document.getElementById("totalAssets").innerText = totalAssets;
+if(d >= today && d <= limit){
+upcoming++;
+}
 
 }
-loadDashboard();
+
+});
+
+document.getElementById("overdueCount").textContent = overdue;
+document.getElementById("upcomingCount").textContent = upcoming;
+document.getElementById("totalAssets").textContent = assetData.length;
+
+}
 
 document.addEventListener("DOMContentLoaded", loadDashboard);
   
@@ -470,6 +464,7 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 </body>
 
 </html>
+
 
 
 
