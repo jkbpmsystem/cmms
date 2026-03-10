@@ -426,10 +426,11 @@ async function loadDashboard(){
   let overdue = 0;
   let upcoming = 0;
 
+  /* ===== LOAD DW (PM DATA) ===== */
   const dwRes = await fetch(DW_API);
   const dwData = await dwRes.json();
 
-  dwData.forEach(pm => {
+  dwData.forEach(pm=>{
 
     if(pm.status !== "Completed"){
 
@@ -460,7 +461,6 @@ async function loadDashboard(){
   document.getElementById("totalAssets").innerText = totalAssets;
 
 }
-
 loadDashboard();
 
 document.addEventListener("DOMContentLoaded", loadDashboard);
@@ -470,6 +470,7 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 </body>
 
 </html>
+
 
 
 
