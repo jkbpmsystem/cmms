@@ -423,7 +423,8 @@ async function loadDashboard(){
 
 const dwRes = await fetch(DW_API);
 const dwData = await dwRes.json();
-
+console.log("DW DATA:", dwData);
+  
 const assetRes = await fetch(ASSET_API);
 const assetData = await assetRes.json();
 
@@ -468,6 +469,7 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 </body>
 
 </html>
+
 
 
 
