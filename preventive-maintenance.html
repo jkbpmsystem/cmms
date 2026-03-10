@@ -432,6 +432,8 @@ const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6S
 
 const data = await res.json();
 
+events = {};
+
 data.forEach(row=>{
 
 let color="blue";
@@ -450,6 +452,7 @@ color:color
 });
 
 renderCalendar();
+loadUpcomingPM(data);   // <-- panggil di sini
 
 }
 
@@ -507,7 +510,6 @@ renderCalendar();
 document.addEventListener("DOMContentLoaded", function(){
 
 loadEvents();
-loadUpcomingPM();
 
 });
 
@@ -539,6 +541,7 @@ container.innerHTML += `
 </script>
 </body>
 </html>
+
 
 
 
