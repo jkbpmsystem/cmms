@@ -439,16 +439,15 @@ let upcoming = 0;
 
 dwData.forEach(pm=>{
 
-if(pm.status !== "Completed"){
+if(pm.status !== "Completed" && pm.date){
 
-let d = new Date(pm.date);
+let d = new Date(pm.date.replace(/-/g,"/"));
 d.setHours(0,0,0,0);
 
 if(d < today){
 overdue++;
 }
-
-if(d >= today && d <= limit){
+else if(d >= today && d <= limit){
 upcoming++;
 }
 
@@ -469,6 +468,7 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 </body>
 
 </html>
+
 
 
 
