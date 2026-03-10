@@ -552,9 +552,67 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
+/*DW*/
+function getDW(){
+
+const sheet = SpreadsheetApp
+.openById(SHEET_ID)
+.getSheetByName(DW_SHEET);
+
+const data = sheet.getDataRange().getValues();
+
+let result = [];
+
+for(let i=1;i<data.length;i++){
+
+let asset = data[i][0];
+
+// 1st PPM
+if(data[i][1]){
+result.push({
+date: Utilities.formatDate(new Date(data[i][1]), "GMT+8", "yyyy-MM-dd"),
+title: asset + " - 1st PM",
+status: data[i][2] ? "Completed" : "Scheduled"
+});
+}
+
+// 2nd PPM
+if(data[i][3]){
+result.push({
+date: Utilities.formatDate(new Date(data[i][3]), "GMT+8", "yyyy-MM-dd"),
+title: asset + " - 2nd PM",
+status: data[i][4] ? "Completed" : "Scheduled"
+});
+}
+
+// 3rd PPM
+if(data[i][5]){
+result.push({
+date: Utilities.formatDate(new Date(data[i][5]), "GMT+8", "yyyy-MM-dd"),
+title: asset + " - 3rd PM",
+status: data[i][6] ? "Completed" : "Scheduled"
+});
+}
+
+// 4th PPM
+if(data[i][7]){
+result.push({
+date: Utilities.formatDate(new Date(data[i][7]), "GMT+8", "yyyy-MM-dd"),
+title: asset + " - 4th PM",
+status: data[i][8] ? "Completed" : "Scheduled"
+});
+}
+
+}
+
+return json(result);
+
+}
+  
 </script>
 </body>
 </html>
+
 
 
 
