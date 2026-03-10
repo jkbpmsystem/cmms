@@ -166,7 +166,42 @@ body{
 }
 
 /* ===== Calendar Container ===== */
-.calendar-box{
+.calendar-card{
+  background:#111827;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.4);
+}
+
+.fc{
+  color:white;
+}
+
+.fc-toolbar-title{
+  font-size:20px;
+  font-weight:600;
+}
+
+.fc-button{
+  background:#2563eb !important;
+  border:none !important;
+  border-radius:6px !important;
+  padding:6px 12px !important;
+}
+
+.fc-button:hover{
+  background:#1d4ed8 !important;
+}
+
+.fc-daygrid-day{
+  background:#0f172a;
+}
+
+.fc-day-today{
+  background:#1e293b !important;
+}
+  
+  .calendar-box{
   background:#0b1421;
   border:1px solid #00e5ff22;
   border-radius:18px;
@@ -318,7 +353,17 @@ td{
     </div>
 
     <!-- Calendar -->
-    <div id="calendar"></div>
+    <div class="main-content">
+
+  <div class="page-title">
+    <h2>Maintenance Calendar</h2>
+  </div>
+
+  <div class="calendar-card">
+      <div id="calendar"></div>
+  </div>
+
+</div>
       <div class="calendar-header">April 2024</div>
 
       <div class="calendar-grid">
@@ -396,40 +441,96 @@ items.forEach(item=>{
 });
 
 /*Calendar*/
-document.addEventListener('DOMContentLoaded', function() {
+let currentDate = new Date();
 
-  var calendarEl = document.getElementById('calendar');
+let events = {};
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+async function loadEvents(){
 
-    initialView: 'dayGridMonth',
+const res = await fetch("YOUR_SCRIPT_URL?action=getDW");
 
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
+const data = await res.json();
 
-    events: [
-      {
-        title: 'PM AHU',
-        start: '2026-03-10'
-      },
-      {
-        title: 'Service Chiller',
-        start: '2026-03-15'
-      }
-    ]
+data.forEach(row=>{
 
-  });
+let color="blue";
 
-  calendar.render();
+if(row.status=="Completed") color="green";
+if(row.status=="Inspection") color="orange";
+if(row.status=="Breakdown") color="red";
+
+if(!events[row.date]) events[row.date]=[];
+
+events[row.date].push({
+title:row.title,
+color:color
+});
 
 });
+
+renderCalendar();
+
+}
+
+function renderCalendar(){
+
+const grid = document.getElementById("calendarGrid");
+grid.innerHTML="";
+
+const year = currentDate.getFullYear();
+const month = currentDate.getMonth();
+
+document.getElementById("monthYear").innerText =
+currentDate.toLocaleString("default",{month:"long"})+" "+year;
+
+const firstDay = new Date(year,month,1).getDay();
+const daysInMonth = new Date(year,month+1,0).getDate();
+
+for(let i=0;i<firstDay;i++){
+grid.innerHTML += `<div></div>`;
+}
+
+for(let d=1; d<=daysInMonth; d++){
+
+const dateStr = `${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+
+let eventHTML="";
+
+if(events[dateStr]){
+events[dateStr].forEach(ev=>{
+eventHTML += `<div class="event ${ev.color}">${ev.title}</div>`;
+});
+}
+
+grid.innerHTML += `
+<div class="day">
+<div class="date">${d}</div>
+${eventHTML}
+</div>
+`;
+
+}
+
+}
+
+function prevMonth(){
+currentDate.setMonth(currentDate.getMonth()-1);
+renderCalendar();
+}
+
+function nextMonth(){
+currentDate.setMonth(currentDate.getMonth()+1);
+renderCalendar();
+}
+
+renderCalendar();
+
+</script>
   
 </script>
 </body>
 </html>
+
 
 
 
