@@ -506,17 +506,17 @@ currentDate.setMonth(currentDate.getMonth()+1);
 renderCalendar();
 }
 
-renderCalendar();
+document.addEventListener("DOMContentLoaded", function(){
+
+loadEvents();
+loadUpcomingPM();
+
+});
 
 /*renderupcoming*/
-async function loadUpcomingPM(){
-
-const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
-
-const data = await res.json();
+function loadUpcomingPM(data){
 
 const container = document.getElementById("upcomingPM");
-
 container.innerHTML="";
 
 let today = new Date();
@@ -525,33 +525,55 @@ let upcoming = data.filter(r=>{
 return new Date(r.date) >= today;
 });
 
-upcoming.sort((a,b)=>{
-return new Date(a.date) - new Date(b.date);
-});
+upcoming.sort((a,b)=> new Date(a.date) - new Date(b.date));
 
 upcoming.slice(0,5).forEach(pm=>{
 
-let d = new Date(pm.date);
-
-let html = `
+container.innerHTML += `
 <div class="pm-item">
-<div class="pm-date">${d.toLocaleDateString()}</div>
-<div class="pm-title">${pm.title}</div>
+<div>${pm.date}</div>
+<div>${pm.title}</div>
 </div>
 `;
-
-container.innerHTML += html;
 
 });
 
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+/*Load Event*/
+const API = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec";
 
-  loadUpcomingPM();
+let events = {};
+
+async function loadEvents(){
+
+events = {};
+
+const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
+
+const data = await res.json();
+
+data.forEach(row=>{
+
+let color="blue";
+
+if(row.status=="Completed") color="green";
+if(row.status=="Inspection") color="orange";
+if(row.status=="Breakdown") color="red";
+
+if(!events[row.date]) events[row.date]=[];
+
+events[row.date].push({
+title:row.title,
+color:color
+});
 
 });
 
+renderCalendar();
+
+}
+  
 /*DW*/
 function getDW(){
 
@@ -612,6 +634,7 @@ return json(result);
 </script>
 </body>
 </html>
+
 
 
 
