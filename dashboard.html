@@ -402,20 +402,48 @@ const API_URL = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQc
 
 async function loadDashboard(){
 
-const dashRes = await fetch(API_URL + "?action=getDashboard");
-const dashData = await dashRes.json();
+  const res = await fetch(API_URL + "?action=getDW");
+  const data = await res.json();
 
-const assetRes = await fetch(API_URL + "?action=getAssets");
-const assetData = await assetRes.json();
+  const assetRes = await fetch(API_URL + "?action=getAssets");
+  const assets = await assetRes.json();
 
-document.getElementById("overdueCount").innerText = dashData.overdue;
-document.getElementById("upcomingCount").innerText = dashData.upcoming;
-document.getElementById("completedCount").innerText = dashData.completed;
-document.getElementById("monthPM").innerText = dashData.thisMonth;
+  let overdue = 0;
+  let upcoming = 0;
+  let completed = 0;
 
-document.getElementById("totalAssets").innerText = assetData.length;
+  const today = new Date();
+  today.setHours(0,0,0,0);
 
+  const limit = new Date();
+  limit.setDate(today.getDate() + 30);
+
+  data.forEach(pm => {
+
+    const d = new Date(pm.date);
+    d.setHours(0,0,0,0);
+
+    if(pm.status === "Completed"){
+      completed++;
+      return;
+    }
+
+    if(d < today){
+      overdue++;
+    }
+    else if(d >= today && d <= limit){
+      upcoming++;
+    }
+
+  });
+
+  document.getElementById("overdueCount").textContent = overdue;
+  document.getElementById("upcomingCount").textContent = upcoming;
+  document.getElementById("completedCount").textContent = completed;
+  document.getElementById("totalAssets").textContent = assets.length;
 }
+
+document.addEventListener("DOMContentLoaded", loadDashboard);
   
 document.addEventListener("DOMContentLoaded", loadDashboard);
   
@@ -424,6 +452,7 @@ document.addEventListener("DOMContentLoaded", loadDashboard);
 </body>
 
 </html>
+
 
 
 
