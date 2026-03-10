@@ -415,11 +415,6 @@ function PPM(){
 }
 
 /*LOAD sheet*/
-const API_URL = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec";
-
-const ASSET_API = API_URL + "?action=getAssets";
-const DW_API = API_URL + "?action=getDW";
-
 async function loadDashboard(){
 
   const today = new Date();
@@ -431,37 +426,25 @@ async function loadDashboard(){
   let overdue = 0;
   let upcoming = 0;
 
-  /* ===== LOAD DW (PM DATA) ===== */
   const dwRes = await fetch(DW_API);
   const dwData = await dwRes.json();
 
-  dwData.forEach(asset=>{
+  dwData.forEach(pm => {
 
-    const pmList = [
-      {date:asset["1st_PPM"],done:asset["Completed_1st_PPM"]},
-      {date:asset["2nd_PPM"],done:asset["Completed_2nd_PPM"]},
-      {date:asset["3rd_PPM"],done:asset["Completed_3rd_PPM"]},
-      {date:asset["4th_PPM"],done:asset["Completed_4th_PPM"]}
-    ];
+    if(pm.status !== "Completed"){
 
-    pmList.forEach(pm=>{
+      const d = new Date(pm.date);
+      d.setHours(0,0,0,0);
 
-      if(pm.date && !pm.done){
-
-        const d = new Date(pm.date);
-        d.setHours(0,0,0,0);
-
-        if(d < today){
-          overdue++;
-        }
-
-        if(d >= today && d <= limit){
-          upcoming++;
-        }
-
+      if(d < today){
+        overdue++;
       }
 
-    });
+      if(d >= today && d <= limit){
+        upcoming++;
+      }
+
+    }
 
   });
 
@@ -479,11 +462,14 @@ async function loadDashboard(){
 }
 
 loadDashboard();
+
+document.addEventListener("DOMContentLoaded", loadDashboard);
   
 </script>
 
 </body>
 
 </html>
+
 
 
