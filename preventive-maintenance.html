@@ -426,8 +426,6 @@ items.forEach(item=>{
 /*Calendar*/
 let currentDate = new Date();
 
-let events = {};
-
 async function loadEvents(){
 
 const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
@@ -521,9 +519,7 @@ container.innerHTML="";
 
 let today = new Date();
 
-let upcoming = data.filter(r=>{
-return new Date(r.date) >= today;
-});
+let upcoming = data.filter(r=> new Date(r.date) >= today);
 
 upcoming.sort((a,b)=> new Date(a.date) - new Date(b.date));
 
@@ -531,8 +527,8 @@ upcoming.slice(0,5).forEach(pm=>{
 
 container.innerHTML += `
 <div class="pm-item">
-<div>${pm.date}</div>
-<div>${pm.title}</div>
+<div class="pm-date">${pm.date}</div>
+<div class="pm-title">${pm.title}</div>
 </div>
 `;
 
@@ -540,100 +536,10 @@ container.innerHTML += `
 
 }
 
-/*Load Event*/
-const API = "https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec";
-
-let events = {};
-
-async function loadEvents(){
-
-events = {};
-
-const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
-
-const data = await res.json();
-
-data.forEach(row=>{
-
-let color="blue";
-
-if(row.status=="Completed") color="green";
-if(row.status=="Inspection") color="orange";
-if(row.status=="Breakdown") color="red";
-
-if(!events[row.date]) events[row.date]=[];
-
-events[row.date].push({
-title:row.title,
-color:color
-});
-
-});
-
-renderCalendar();
-
-}
-  
-/*DW*/
-function getDW(){
-
-const sheet = SpreadsheetApp
-.openById(SHEET_ID)
-.getSheetByName(DW_SHEET);
-
-const data = sheet.getDataRange().getValues();
-
-let result = [];
-
-for(let i=1;i<data.length;i++){
-
-let asset = data[i][0];
-
-// 1st PPM
-if(data[i][1]){
-result.push({
-date: Utilities.formatDate(new Date(data[i][1]), "GMT+8", "yyyy-MM-dd"),
-title: asset + " - 1st PM",
-status: data[i][2] ? "Completed" : "Scheduled"
-});
-}
-
-// 2nd PPM
-if(data[i][3]){
-result.push({
-date: Utilities.formatDate(new Date(data[i][3]), "GMT+8", "yyyy-MM-dd"),
-title: asset + " - 2nd PM",
-status: data[i][4] ? "Completed" : "Scheduled"
-});
-}
-
-// 3rd PPM
-if(data[i][5]){
-result.push({
-date: Utilities.formatDate(new Date(data[i][5]), "GMT+8", "yyyy-MM-dd"),
-title: asset + " - 3rd PM",
-status: data[i][6] ? "Completed" : "Scheduled"
-});
-}
-
-// 4th PPM
-if(data[i][7]){
-result.push({
-date: Utilities.formatDate(new Date(data[i][7]), "GMT+8", "yyyy-MM-dd"),
-title: asset + " - 4th PM",
-status: data[i][8] ? "Completed" : "Scheduled"
-});
-}
-
-}
-
-return json(result);
-
-}
-  
 </script>
 </body>
 </html>
+
 
 
 
