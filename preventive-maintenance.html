@@ -611,12 +611,7 @@ const firstDay = new Date(year,month,1).getDay();
 const daysInMonth = new Date(year,month+1,0).getDate();
 
 for(let i=0;i<firstDay;i++){
-grid.innerHTML += `
-<div class="day" onclick="openDay('${dateStr}')">
-<div class="date">${d}</div>
-${eventHTML}
-</div>
-`;
+grid.innerHTML += `<div></div>`;
 }
 
 for(let d=1; d<=daysInMonth; d++){
@@ -630,25 +625,31 @@ if(events[dateStr]){
 let dayEvents = events[dateStr];
 
 dayEvents.slice(0,2).forEach(ev=>{
+
 eventHTML += `
-<div class="event ${ev.color}" 
-onclick="openModal('${ev.equipment}','${ev.type}','${ev.start}','${ev.freq}')">
+<div class="event ${ev.color}"
+onmouseover='showTooltip(event, ${JSON.stringify(ev)})'
+onmouseout="hideTooltip()"
+onclick="event.stopPropagation()">
 ${ev.title}
 </div>`;
+
 });
 
 if(dayEvents.length > 2){
+
 eventHTML += `
 <div class="event more"
-onclick="showMore('${dateStr}')">
+onclick="event.stopPropagation(); showMore('${dateStr}')">
 +${dayEvents.length - 2} more
 </div>`;
+
 }
 
 }
 
 grid.innerHTML += `
-<div class="day">
+<div class="day" onclick="openDay('${dateStr}')">
 <div class="date">${d}</div>
 ${eventHTML}
 </div>
@@ -803,7 +804,7 @@ document.getElementById("eventModal").style.display="flex";
     </div>
 
     <div class="modal-body">
-    <div id="tooltip" class="tooltip"></div>
+    
       <div class="info-row">
         <span class="label">Type Code</span>
         <span id="modalType"></span>
@@ -826,8 +827,12 @@ document.getElementById("eventModal").style.display="flex";
 
   </div>
 </div>
+  
+  <div id="tooltip" class="tooltip"></div>
+  
 </body>
 </html>
+
 
 
 
