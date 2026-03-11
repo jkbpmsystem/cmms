@@ -582,12 +582,19 @@ items.forEach(item=>{
 });
 
 /*Calendar*/
-let currentDate = new Date();
+let assetMap = {};
 
 async function loadEvents(){
 
 const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
 
+const data = await res.json();
+
+assets.forEach(a=>{
+assetMap[a.id] = a;
+});
+
+const res = await fetch(API_URL + "?action=getDW");
 const data = await res.json();
 
 events = {};
@@ -602,22 +609,25 @@ if(row.status=="Breakdown") color="red";
 
 if(!events[row.date]) events[row.date]=[];
 
+const asset = assetMap[row.id] || {};
+
 events[row.date].push({
 title:row.id,
-equipment:row.equipmentName,
-type:row.typeCode,
-start:row.startDate,
-freq:row.ppmFrequency,
+equipment:asset.equipmentName,
+type:asset.typeCode,
+start:asset.startDate,
+freq:asset.ppmFrequency,
 color:color
 });
 
 });
 
 renderCalendar();
-loadUpcomingPM(data);   // <-- panggil di sini
+loadUpcomingPM(data);
 
 }
 
+/*Render Calendar*/
 function renderCalendar(){
 
 const grid = document.getElementById("calendarGrid");
@@ -832,6 +842,7 @@ document.getElementById("eventModal").style.display="flex";
   
 </body>
 </html>
+
 
 
 
