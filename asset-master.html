@@ -635,6 +635,8 @@ async function loadAssets(){
   const res = await fetch(API_URL + "?action=getAssets&t=" + Date.now());
   assetData = await res.json();
 
+    assetData.reverse();
+
   filteredData = assetData;
 
   populateFilters();
@@ -1141,6 +1143,7 @@ document.getElementById("assetId").value = data.id;
 
 
 </html>
+
 
 
 
