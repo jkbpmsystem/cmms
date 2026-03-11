@@ -330,6 +330,98 @@ font-size:13px;
 font-weight:500;
 }
 
+/*modal*/
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:none;
+align-items:center;
+justify-content:center;
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(6px);
+z-index:999;
+}
+
+.modal-box{
+width:340px;
+padding:25px;
+border-radius:18px;
+background:rgba(15,23,42,0.65);
+backdrop-filter:blur(18px);
+border:1px solid #00e5ff33;
+box-shadow:0 10px 40px rgba(0,0,0,0.6);
+animation:modalFade 0.25s ease;
+}
+
+@keyframes modalFade{
+from{
+opacity:0;
+transform:scale(0.9);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
+.modal-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.modal-header h3{
+font-size:16px;
+color:#00e5ff;
+}
+
+.close-btn{
+cursor:pointer;
+font-size:16px;
+opacity:0.6;
+}
+
+.close-btn:hover{
+opacity:1;
+}
+
+.modal-body{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.info-row{
+display:flex;
+justify-content:space-between;
+padding:10px 12px;
+background:rgba(0,0,0,0.25);
+border-radius:10px;
+font-size:13px;
+}
+
+.label{
+opacity:0.6;
+}
+
+/*See more*/
+.more{
+background:#1e293b;
+cursor:pointer;
+text-align:center;
+font-size:11px;
+opacity:0.7;
+}
+
+.more:hover{
+opacity:1;
+background:#334155;
+}
+  
 </style>
 </head>
 
@@ -445,6 +537,10 @@ if(!events[row.date]) events[row.date]=[];
 
 events[row.date].push({
 title:row.id,
+equipment:row.equipmentName,
+type:row.typeCode,
+start:row.startDate,
+freq:row.ppmFrequency,
 color:color
 });
 
@@ -480,9 +576,25 @@ const dateStr = `${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart
 let eventHTML="";
 
 if(events[dateStr]){
-events[dateStr].forEach(ev=>{
-eventHTML += `<div class="event ${ev.color}">${ev.title}</div>`;
+
+let dayEvents = events[dateStr];
+
+dayEvents.slice(0,2).forEach(ev=>{
+eventHTML += `
+<div class="event ${ev.color}" 
+onclick="openModal('${ev.equipment}','${ev.type}','${ev.start}','${ev.freq}')">
+${ev.title}
+</div>`;
 });
+
+if(dayEvents.length > 2){
+eventHTML += `
+<div class="event more"
+onclick="showMore('${dateStr}')">
++${dayEvents.length - 2} more
+</div>`;
+}
+
 }
 
 grid.innerHTML += `
@@ -538,9 +650,85 @@ container.innerHTML += `
 
 }
 
+/*Modal*/
+function openModal(name,type,start,freq){
+
+document.getElementById("modalEquipment").innerText = name;
+document.getElementById("modalType").innerText = type;
+document.getElementById("modalStart").innerText = start;
+document.getElementById("modalFreq").innerText = freq;
+
+document.getElementById("eventModal").style.display="flex";
+
+}
+
+function closeModal(){
+document.getElementById("eventModal").style.display="none";
+}
+
+/*See More*/
+function showMore(date){
+
+const list = events[date];
+
+let html = `<h3 style="margin-bottom:10px;">PPM ${date}</h3>`;
+
+list.forEach(ev=>{
+html += `
+<div class="pm-item"
+onclick="openModal('${ev.equipment}','${ev.type}','${ev.start}','${ev.freq}')">
+<div class="pm-title">${ev.title}</div>
+</div>`;
+});
+
+document.getElementById("modalEquipment").innerHTML = html;
+document.getElementById("modalType").innerText = "";
+document.getElementById("modalStart").innerText = "";
+document.getElementById("modalFreq").innerText = "";
+
+document.getElementById("eventModal").style.display="flex";
+
+}
+  
 </script>
+/*Modal klik calendar*/
+   <div id="eventModal" class="modal">
+  <div class="modal-box">
+
+    <div class="modal-header">
+      <h3 id="modalEquipment"></h3>
+      <span class="close-btn" onclick="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </span>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="info-row">
+        <span class="label">Type Code</span>
+        <span id="modalType"></span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Start Date</span>
+        <span id="modalStart"></span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">Frequency</span>
+        <span id="modalFreq"></span>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+  </div>
+</div>
 </body>
 </html>
+
 
 
 
