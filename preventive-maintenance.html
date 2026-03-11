@@ -444,7 +444,7 @@ if(row.status=="Breakdown") color="red";
 if(!events[row.date]) events[row.date]=[];
 
 events[row.date].push({
-title:row.title,
+title:row.id,
 color:color
 });
 
@@ -519,6 +519,7 @@ const container = document.getElementById("upcomingPM");
 container.innerHTML="";
 
 let today = new Date();
+today.setHours(0,0,0,0);
 
 let upcoming = data.filter(r=> new Date(r.date) >= today);
 
@@ -529,7 +530,7 @@ upcoming.slice(0,5).forEach(pm=>{
 container.innerHTML += `
 <div class="pm-item">
 <div class="pm-date">${pm.date}</div>
-<div class="pm-title">${pm.title}</div>
+<div class="pm-title">${pm.id}</div>
 </div>
 `;
 
@@ -540,6 +541,7 @@ container.innerHTML += `
 </script>
 </body>
 </html>
+
 
 
 
