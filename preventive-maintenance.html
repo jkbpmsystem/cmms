@@ -421,7 +421,52 @@ opacity:0.7;
 opacity:1;
 background:#334155;
 }
-  
+
+.tooltip{
+position:absolute;
+background:#0f172a;
+border:1px solid #00e5ff33;
+padding:10px 12px;
+border-radius:8px;
+font-size:12px;
+display:none;
+z-index:1000;
+width:220px;
+box-shadow:0 10px 25px rgba(0,0,0,0.5);
+}
+
+.tooltip b{
+color:#00e5ff;
+}
+
+.event{
+cursor:pointer;
+}
+
+/*Grid asset*/
+.grid-events{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:10px;
+}
+
+.grid-item{
+background:#0f172a;
+padding:10px;
+border-radius:8px;
+border:1px solid #00e5ff22;
+}
+
+.grid-id{
+font-size:12px;
+color:#00e5ff;
+}
+
+.grid-name{
+font-size:11px;
+opacity:0.7;
+}
 </style>
 </head>
 
@@ -566,7 +611,12 @@ const firstDay = new Date(year,month,1).getDay();
 const daysInMonth = new Date(year,month+1,0).getDate();
 
 for(let i=0;i<firstDay;i++){
-grid.innerHTML += `<div></div>`;
+grid.innerHTML += `
+<div class="day" onclick="openDay('${dateStr}')">
+<div class="date">${d}</div>
+${eventHTML}
+</div>
+`;
 }
 
 for(let d=1; d<=daysInMonth; d++){
@@ -689,9 +739,59 @@ document.getElementById("modalFreq").innerText = "";
 document.getElementById("eventModal").style.display="flex";
 
 }
+
+/*tootlip*/
+function showTooltip(e,ev){
+
+const tooltip = document.getElementById("tooltip");
+
+tooltip.innerHTML = `
+<b>${ev.equipment}</b><br>
+Type: ${ev.type}<br>
+Start: ${ev.start}<br>
+Freq: ${ev.freq}
+`;
+
+tooltip.style.display="block";
+tooltip.style.left = e.pageX + 10 + "px";
+tooltip.style.top = e.pageY + 10 + "px";
+
+}
+
+function hideTooltip(){
+document.getElementById("tooltip").style.display="none";
+}
+
+/*klik day*/
+function openDay(date){
+
+const list = events[date] || [];
+
+let html = `<h3 style="margin-bottom:15px">PPM ${date}</h3>`;
+html += `<div class="grid-events">`;
+
+list.forEach(ev=>{
+html += `
+<div class="grid-item">
+<div class="grid-id">${ev.title}</div>
+<div class="grid-name">${ev.equipment}</div>
+</div>
+`;
+});
+
+html += `</div>`;
+
+document.getElementById("modalEquipment").innerHTML = html;
+document.getElementById("modalType").innerText="";
+document.getElementById("modalStart").innerText="";
+document.getElementById("modalFreq").innerText="";
+
+document.getElementById("eventModal").style.display="flex";
+
+}
   
 </script>
-/*Modal klik calendar*/
+
    <div id="eventModal" class="modal">
   <div class="modal-box">
 
@@ -703,7 +803,7 @@ document.getElementById("eventModal").style.display="flex";
     </div>
 
     <div class="modal-body">
-
+    <div id="tooltip" class="tooltip"></div>
       <div class="info-row">
         <span class="label">Type Code</span>
         <span id="modalType"></span>
@@ -728,6 +828,7 @@ document.getElementById("eventModal").style.display="flex";
 </div>
 </body>
 </html>
+
 
 
 
