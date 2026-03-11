@@ -1111,9 +1111,15 @@ document.getElementById("assetId").value = data.id;
                             <input id="ppmFrequency" type="text" placeholder="Enter Frequency"required>
                         </div>
 
-                        <div class="form-group">
-                            <label>Status dalam kontrak Edgenta</label>
-                            <input id="status" type="text" placeholder="YES / NO" required>
+                       <div class="form-group">
+                            <label>Asset dalam kontrak Edgenta?</label>
+
+                            <select id="status" required>
+                                    <option value="">Select</option>
+                                    <option value="NO">NO</option>
+                                    <option value="YES">YES</option>
+                            </select>
+
                         </div>
 
                     </div>
@@ -1143,6 +1149,7 @@ document.getElementById("assetId").value = data.id;
 
 
 </html>
+
 
 
 
