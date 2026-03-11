@@ -635,7 +635,7 @@ async function loadAssets(){
   const res = await fetch(API_URL + "?action=getAssets&t=" + Date.now());
   assetData = await res.json();
 
-    assetData.reverse();
+  assetData.sort((a,b)=> b.id.localeCompare(a.id));
 
   filteredData = assetData;
 
@@ -1143,6 +1143,7 @@ document.getElementById("assetId").value = data.id;
 
 
 </html>
+
 
 
 
