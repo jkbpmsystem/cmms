@@ -585,21 +585,24 @@ items.forEach(item=>{
 });
 
 /*Calendar*/
-let assetMap = {};
-
 async function loadEvents(){
 
-const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
-
+/* GET ASSETS */
+const resAssets = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getAssets");
 const assets = await resAssets.json();
+
+/* Map Asset */
+assetMap = {};
 
 assets.forEach(a=>{
 assetMap[a.id] = a;
 });
 
-const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
+/* GET DW */
+const resDW = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
 const data = await resDW.json();
 
+/* Reset events */
 events = {};
 
 data.forEach(row=>{
@@ -616,10 +619,10 @@ const asset = assetMap[row.id] || {};
 
 events[row.date].push({
 title:row.id,
-equipment:asset.equipmentName,
-type:asset.typeCode,
-start:asset.startDate,
-freq:asset.ppmFrequency,
+equipment:asset.equipmentName || "-",
+type:asset.typeCode || "-",
+start:asset.startDate || "-",
+freq:asset.ppmFrequency || "-",
 color:color
 });
 
@@ -845,6 +848,7 @@ document.getElementById("eventModal").style.display="flex";
   
 </body>
 </html>
+
 
 
 
