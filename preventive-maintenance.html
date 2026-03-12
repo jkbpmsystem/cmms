@@ -894,13 +894,13 @@ const start = el.dataset.start;
 const freq = el.dataset.freq;
 
 tooltip.innerHTML = `
-<b>${ev.equipment}</b><br>
-Type : ${ev.type}<br>
-Start : ${formatDate(ev.start)}<br>
-Freq : ${ev.freq} / year
+<b>${equipment}</b><br>
+Type : ${type}<br>
+Start : ${formatDate(start)}<br>
+Freq : ${freq}
 `;
 
-tooltip.style.display="block";
+tooltip.style.display = "block";
 tooltip.style.left = e.pageX + 10 + "px";
 tooltip.style.top = e.pageY + 10 + "px";
 
@@ -976,6 +976,7 @@ return `${day}/${month}/${year}`;
   
 </body>
 </html>
+
 
 
 
