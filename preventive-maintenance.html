@@ -489,6 +489,29 @@ background:#00e5ff55;
 border-radius:10px;
 }
 
+/*pagination*/
+.pagination{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin-top:10px;
+}
+
+.pagination button{
+background:#0f172a;
+border:1px solid #00e5ff33;
+color:#00e5ff;
+padding:4px 10px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.pagination button:hover{
+background:#00e5ff22;
+}
+
+
 </style>
 </head>
 
@@ -574,7 +597,9 @@ border-radius:10px;
 
 let currentDate = new Date();
 let events = {};
-  
+let upcomingData = [];
+let upcomingPage = 1;
+const upcomingPerPage = 5;
 const currentPage = window.location.pathname.split("/").pop();
 const items = document.querySelectorAll(".side-item");
 
@@ -720,29 +745,77 @@ loadEvents();
 /*renderupcoming*/
 function loadUpcomingPM(data){
 
-const container = document.getElementById("upcomingPM");
-container.innerHTML="";
-
 let today = new Date();
 today.setHours(0,0,0,0);
 
-let upcoming = data.filter(r=> new Date(r.date) >= today);
+upcomingData = data.filter(r => new Date(r.date) >= today);
 
-upcoming.sort((a,b)=> new Date(a.date) - new Date(b.date));
+upcomingData.sort((a,b)=> new Date(a.date) - new Date(b.date));
 
-upcoming.slice(0,5).forEach(pm=>{
+upcomingPage = 1;
+
+renderUpcoming();
+
+}
+
+/*render table upcoming*/
+function renderUpcoming(){
+
+const container = document.getElementById("upcomingPM");
+container.innerHTML = "";
+
+const start = (upcomingPage - 1) * upcomingPerPage;
+const end = start + upcomingPerPage;
+
+const pageData = upcomingData.slice(start,end);
+
+pageData.forEach(pm => {
 
 container.innerHTML += `
 <div class="pm-item">
-<div class="pm-date">${pm.date}</div>
+<div class="pm-date">${formatDate(pm.date)}</div>
 <div class="pm-title">${pm.id}</div>
 </div>
 `;
 
 });
 
+renderUpcomingPagination();
+
 }
 
+/*pagination button*/
+function renderUpcomingPagination(){
+
+const container = document.getElementById("upcomingPM");
+
+const totalPages = Math.ceil(upcomingData.length / upcomingPerPage);
+
+let html = `<div class="pagination">`;
+
+if(upcomingPage > 1){
+html += `<button onclick="changeUpcomingPage(${upcomingPage-1})">Prev</button>`;
+}
+
+html += `<span> Page ${upcomingPage} / ${totalPages} </span>`;
+
+if(upcomingPage < totalPages){
+html += `<button onclick="changeUpcomingPage(${upcomingPage+1})">Next</button>`;
+}
+
+html += `</div>`;
+
+container.innerHTML += html;
+
+}
+
+function changeUpcomingPage(page){
+
+upcomingPage = page;
+renderUpcoming();
+
+}
+  
 /*Modal*/
 function openModal(name,type,start,freq){
 
@@ -883,6 +956,7 @@ return `${day}/${month}/${year}`;
   
 </body>
 </html>
+
 
 
 
