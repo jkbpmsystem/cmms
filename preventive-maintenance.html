@@ -330,6 +330,11 @@ font-size:13px;
 font-weight:500;
 }
 
+.pm-equip{
+font-size:11px;
+opacity:0.6;
+}
+
 /*modal*/
 .modal{
 position:fixed;
@@ -654,7 +659,13 @@ color:color
 });
 
 renderCalendar();
-loadUpcomingPM(data);
+loadUpcomingPM(data.map(r=>{
+const asset = assetMap[r.id] || {};
+return {
+...r,
+equipmentName: asset.equipmentName
+};
+}));
 
 }
 
@@ -745,10 +756,16 @@ loadEvents();
 /*renderupcoming*/
 function loadUpcomingPM(data){
 
-let today = new Date();
-today.setHours(0,0,0,0);
+const year = currentDate.getFullYear();
+const month = currentDate.getMonth();
 
-upcomingData = data.filter(r => new Date(r.date) >= today);
+upcomingData = data.filter(r=>{
+
+const d = new Date(r.date);
+
+return d.getFullYear() === year && d.getMonth() === month;
+
+});
 
 upcomingData.sort((a,b)=> new Date(a.date) - new Date(b.date));
 
@@ -773,8 +790,11 @@ pageData.forEach(pm => {
 
 container.innerHTML += `
 <div class="pm-item">
+<div>
 <div class="pm-date">${formatDate(pm.date)}</div>
 <div class="pm-title">${pm.id}</div>
+<div class="pm-equip">${pm.equipmentName || "-"}</div>
+</div>
 </div>
 `;
 
@@ -956,6 +976,7 @@ return `${day}/${month}/${year}`;
   
 </body>
 </html>
+
 
 
 
