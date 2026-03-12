@@ -666,7 +666,11 @@ dayEvents.slice(0,2).forEach(ev=>{
 
 eventHTML += `
 <div class="event ${ev.color}"
-onmouseover='showTooltip(event, ${JSON.stringify(ev)})'
+data-equipment="${ev.equipment}"
+data-type="${ev.type}"
+data-start="${ev.start}"
+data-freq="${ev.freq}"
+onmouseover="showTooltip(event,this)"
 onmouseout="hideTooltip()"
 onclick="event.stopPropagation()">
 ${ev.title}
@@ -678,7 +682,7 @@ if(dayEvents.length > 2){
 
 eventHTML += `
 <div class="event more"
-onclick="event.stopPropagation(); showMore('${dateStr}')">
+onclick="showMore('${dateStr}'); return false;">
 +${dayEvents.length - 2} more
 </div>`;
 
@@ -758,37 +762,49 @@ document.getElementById("eventModal").style.display="none";
 /*See More*/
 function showMore(date){
 
-const list = events[date];
+const list = events[date] || [];
 
-let html = `<h3 style="margin-bottom:10px;">PPM ${date}</h3>`;
+let html = `<div class="grid-events">`;
 
 list.forEach(ev=>{
 html += `
-<div class="pm-item"
-onclick="openModal('${ev.equipment}','${ev.type}','${ev.start}','${ev.freq}')">
-<div class="pm-title">${ev.title}</div>
+<div class="grid-item"
+data-equipment="${ev.equipment}"
+data-type="${ev.type}"
+data-start="${ev.start}"
+data-freq="${ev.freq}"
+onmouseover="showTooltip(event,this)"
+onmouseout="hideTooltip()">
+
+<div class="grid-id">${ev.title}</div>
+
 </div>`;
 });
 
-document.getElementById("modalEquipment").innerHTML = html;
-document.getElementById("modalType").innerText = "";
-document.getElementById("modalStart").innerText = "";
-document.getElementById("modalFreq").innerText = "";
+html += `</div>`;
+
+document.getElementById("modalTitle").innerText = "PPM " + date;
+document.getElementById("modalContent").innerHTML = html;
 
 document.getElementById("eventModal").style.display="flex";
 
 }
 
 /*tootlip*/
-function showTooltip(e,ev){
+function showTooltip(e,el){
 
 const tooltip = document.getElementById("tooltip");
 
+const equipment = el.dataset.equipment;
+const type = el.dataset.type;
+const start = el.dataset.start;
+const freq = el.dataset.freq;
+
 tooltip.innerHTML = `
-<b>${ev.equipment}</b><br>
-Type : ${ev.type}<br>
-Start : ${ev.start}<br>
-Freq : ${ev.freq}
+<b>${equipment}</b><br>
+Type : ${type}<br>
+Start : ${start}<br>
+Freq : ${freq}
 `;
 
 tooltip.style.display="block";
@@ -811,7 +827,11 @@ let html = `<div class="grid-events">`;
 list.forEach(ev=>{
 html += `
 <div class="grid-item"
-onmouseover='showTooltip(event, ${JSON.stringify(ev)})'
+data-equipment="${ev.equipment}"
+data-type="${ev.type}"
+data-start="${ev.start}"
+data-freq="${ev.freq}"
+onmouseover="showTooltip(event,this)"
 onmouseout="hideTooltip()">
 <div class="grid-id">${ev.title}</div>
 </div>
@@ -848,6 +868,7 @@ document.getElementById("eventModal").style.display="flex";
   
 </body>
 </html>
+
 
 
 
