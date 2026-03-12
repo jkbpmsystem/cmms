@@ -801,10 +801,10 @@ const start = el.dataset.start;
 const freq = el.dataset.freq;
 
 tooltip.innerHTML = `
-<b>${equipment}</b><br>
-Type : ${type}<br>
-Start : ${start}<br>
-Freq : ${freq}
+<b>${ev.equipment}</b><br>
+Type : ${ev.type}<br>
+Start : ${formatDate(ev.start)}<br>
+Freq : ${ev.freq} / year
 `;
 
 tooltip.style.display="block";
@@ -846,6 +846,21 @@ document.getElementById("modalContent").innerHTML = html;
 document.getElementById("eventModal").style.display="flex";
 
 }
+
+/*tukar format*/
+function formatDate(dateStr){
+
+if(!dateStr) return "-";
+
+const d = new Date(dateStr);
+
+const day = String(d.getDate()).padStart(2,"0");
+const month = String(d.getMonth()+1).padStart(2,"0");
+const year = d.getFullYear();
+
+return `${day}/${month}/${year}`;
+
+}
   
 </script>
 
@@ -868,6 +883,7 @@ document.getElementById("eventModal").style.display="flex";
   
 </body>
 </html>
+
 
 
 
