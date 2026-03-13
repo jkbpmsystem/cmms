@@ -564,9 +564,8 @@ background:#00e5ff22;
     <div class="header-row">
       <h2>Preventive Maintenance</h2>
       <div class="actions">
-        <button class="btn">Filter</button>
-        <button class="btn">Month</button>
-      </div>
+  <button class="btn" onclick="exportMonth()">Export</button>
+</div>
     </div>
 
     <!-- Calendar -->
@@ -600,6 +599,8 @@ background:#00e5ff22;
 
 <script>
 
+let dwData = [];
+let assetMap = {};
 let currentDate = new Date();
 let events = {};
 let upcomingData = [];
@@ -630,7 +631,8 @@ assetMap[a.id] = a;
 
 /* GET DW */
 const resDW = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
-const data = await resDW.json();
+dwData = await resDW.json();
+const data = dwData;
 
 /* Reset events */
 events = {};
@@ -954,7 +956,81 @@ const year = d.getFullYear();
 return `${day}/${month}/${year}`;
 
 }
-  
+
+/*Export*/
+function exportMonth(){
+
+const year = currentDate.getFullYear();
+const month = currentDate.getMonth();
+
+let exportData = [];
+
+dwData.forEach(row=>{
+
+const d = new Date(row.date);
+
+if(d.getFullYear() === year && d.getMonth() === month){
+
+const asset = assetMap[row.id] || {};
+
+exportData.push({
+
+id: row.id,
+codeLocation: asset.codeLocation || "",
+area: asset.area || "",
+department: asset.department || "",
+assetNo: asset.assetNo || "",
+assetNoHosza: asset.assetNoHosza || "",
+equipmentName: asset.equipmentName || "",
+typeCode: asset.typeCode || "",
+equipmentDescriptions: asset.equipmentDescriptions || "",
+discipline: asset.discipline || "",
+bumi: asset.bumi || "",
+bumiContact: asset["bumi contact"] || "",
+supplier: asset.supplier || "",
+supplierContact: asset.supplierContact || "",
+manufacture: asset.manufacture || "",
+model: asset.model || "",
+serialNumber: asset.serialNumber || "",
+price: asset.price || "",
+lpoNo: asset.lpoNo || "",
+category: asset.category || "",
+startDate: asset.startDate || "",
+endDate: asset.endDate || "",
+ppmFrequency: asset.ppmFrequency || "",
+assetStatus: asset.status || "",
+
+ppmDate: row.date,
+ppmStatus: row.status
+
+});
+
+}
+
+});
+
+/* convert to CSV */
+
+let headers = Object.keys(exportData[0]).join(",") + "\n";
+
+let rows = exportData.map(obj =>
+Object.values(obj).map(v => `"${v}"`).join(",")
+).join("\n");
+
+let csv = headers + rows;
+
+/* download */
+
+const blob = new Blob([csv],{type:"text/csv"});
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+a.href = url;
+a.download = "PPM_"+year+"_"+(month+1)+".csv";
+a.click();
+
+}
+
 </script>
 
 <div id="eventModal" class="modal">
@@ -976,6 +1052,7 @@ return `${day}/${month}/${year}`;
   
 </body>
 </html>
+
 
 
 
