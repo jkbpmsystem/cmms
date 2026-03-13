@@ -429,32 +429,6 @@ renderPostTable();
 
 }
 
-const row = `
-<tr>
-<td>${asset.id}</td>
-<td>${asset.equipmentName || "-"}</td>
-<td>${asset.supplier || "-"}</td>
-<td>${formatDate(asset.startDate)}</td>
-<td>${formatDate(asset.endDate)}</td>
-<td>${daysLeft < 0 ? "Expired" : daysLeft + " days"}</td>
-<td><span class="badge ${statusClass}">${statusText}</span></td>
-</tr>
-`;
-
-if(daysLeft < 0){
-
-postTable.innerHTML += row;
-
-}else{
-
-duringTable.innerHTML += row;
-
-}
-
-});
-
-}
-
 /*export*/
 function exportPostWarranty(){
 
@@ -649,6 +623,7 @@ loadWarranty();
 </script>
   </body>
 </html>
+
 
 
 
