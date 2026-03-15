@@ -439,56 +439,7 @@ async function loadDashboard(){
 }
   
   
-const upcomingBody = document.getElementById("upcomingTable");
 
-upcomingList
-.sort((a,b)=> new Date(a.date) - new Date(b.date))
-.slice(0,10)
-.forEach(item=>{
-
-const tr = document.createElement("tr");
-
-tr.innerHTML = `
-<td>${item.id}</td>
-<td>${item.asset}</td>
-<td>${item.date}</td>
-<td><span class="status progress">Upcoming</span></td>
-`;
-
-upcomingBody.appendChild(tr);
-
-});
-
-const overdueBody = document.getElementById("overdueTable");
-
-overdueList
-.sort((a,b)=> new Date(a.date) - new Date(b.date))
-.slice(0,10)
-.forEach(item=>{
-
-const tr = document.createElement("tr");
-
-tr.innerHTML = `
-<td>${item.id}</td>
-<td>${item.asset}</td>
-<td>${item.date}</td>
-<td><span class="status overdue">Overdue</span></td>
-`;
-
-overdueBody.appendChild(tr);
-
-});
-
-  document.getElementById("overdueCount").textContent = overdue;
-  document.getElementById("upcomingCount").textContent = upcoming;
-  document.getElementById("totalAssets").textContent = assets.length;
-  document.getElementById("completedCount").textContent = completed;
-
-}
-
-
-
- 
 document.addEventListener("DOMContentLoaded", loadDashboard);
   
 </script>
