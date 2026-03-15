@@ -619,7 +619,7 @@ items.forEach(item=>{
 async function loadEvents(){
 
 /* GET ASSETS */
-const resAssets = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getAssets");
+const resAssets = await fetch("https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz6EQLj2JAEcTVC2TCFdkPG9CMI6cZ1iHuyTm1ui4QBIlRxg/exec?action=getAssets");
 const assets = await resAssets.json();
 
 /* Map Asset */
@@ -630,7 +630,7 @@ assetMap[a.id] = a;
 });
 
 /* GET DW */
-const resDW = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getDW");
+const resDW = await fetch("https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz6EQLj2JAEcTVC2TCFdkPG9CMI6cZ1iHuyTm1ui4QBIlRxg/exec?action=getDW");
 dwData = await resDW.json();
 const data = dwData;
 
