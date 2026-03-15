@@ -428,81 +428,15 @@ const API_URL = "https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz
 
 async function loadDashboard(){
 
-  const res = await fetch(API_URL + "?action=getDW");
+  const res = await fetch(API_URL + "?action=getDashboard");
   const data = await res.json();
 
-  const assetRes = await fetch(API_URL + "?action=getAssets");
-  const assets = await assetRes.json();
-
-  let overdue = 0;
-  let upcoming = 0;
-  let completed = 0;
-    
-
-  let overdueList = [];
-  let upcomingList = [];
-  
-  
-  const today = new Date();
-  today.setHours(0,0,0,0);
-
-  const limit = new Date();
-  limit.setDate(today.getDate() + 30);
-
-  data.forEach(row => {
-
-    const dates = [
-      row.col3,
-      row.col5,
-      row.col7,
-      row.col9
-    ];
-
-    const status = [
-      row.col4,
-      row.col6,
-      row.col8,
-      row.col10
-    ];
-
-    dates.forEach((dateValue,i)=>{
-
-      if(!dateValue) return;
-
-      if(status[i] === "Completed") return;
-
-      const d = new Date(dateValue);
-      d.setHours(0,0,0,0);
-      
-      const currentYear = today.getFullYear();
-
-if(d < today){
-
-  overdue++;
-
-  overdueList.push({
-    id: row.id,
-    asset: row.asset,
-    date: dateValue
-  });
+  document.getElementById("overdueCount").textContent = data.overdue;
+  document.getElementById("upcomingCount").textContent = data.upcoming;
+  document.getElementById("completedCount").textContent = data.completed;
+  document.getElementById("totalAssets").textContent = data.totalAssets;
 
 }
-
-else if(d >= today && d <= limit){
-
-  upcoming++;
-
-  upcomingList.push({
-    id: row.id,
-    asset: row.asset,
-    date: dateValue
-  });
-
-}
-
-    });
-
-  });
   
   
 const upcomingBody = document.getElementById("upcomingTable");
