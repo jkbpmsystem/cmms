@@ -133,7 +133,7 @@ body{
 /* ===== KPI Cards ===== */
 .kpi-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:20px;
   margin-bottom:25px;
 }
@@ -246,7 +246,7 @@ td{
 <div class="wrapper">
 
   <!-- Sidebar -->
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
   <div class="logo"><i class="fa-solid fa-cube"></i></div>
 
 <a href="dashboard.html" class="side-item">
@@ -311,6 +311,13 @@ td{
         <div class="card-title">Upcoming PM</div>
         <div class="card-value yellow" id="upcomingCount">0</div>
       </div>
+
+      <div class="card">
+  <i class="fa-solid fa-circle-check green"></i>
+  <div class="card-title">Completed</div>
+  <div class="card-value green" id="completedCount">0</div>
+</div>
+      
     </div>
 
     <!-- Charts -->
@@ -327,10 +334,41 @@ td{
   </div>
 
     <!-- Table -->
-    <div class="table-box">
-      <div class="chart-title">Due PPM</div>
-     
-    </div>
+<div class="table-box">
+
+<div class="chart-title">Upcoming PPM</div>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Asset</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="upcomingTable"></tbody>
+</table>
+
+<br>
+
+<div class="chart-title">Overdue PM</div>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Asset</th>
+<th>Date</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="overdueTable"></tbody>
+</table>
+
+</div>
 
   </div>
 </div>
@@ -399,40 +437,124 @@ async function loadDashboard(){
   let overdue = 0;
   let upcoming = 0;
   let completed = 0;
+    
 
+  let overdueList = [];
+  let upcomingList = [];
+  
+  
   const today = new Date();
   today.setHours(0,0,0,0);
 
   const limit = new Date();
   limit.setDate(today.getDate() + 30);
 
-  data.forEach(pm => {
+  data.forEach(row => {
 
-    const d = new Date(pm.date);
-    d.setHours(0,0,0,0);
+    const dates = [
+      row.col3,
+      row.col5,
+      row.col7,
+      row.col9
+    ];
 
-    if(pm.status === "Completed"){
-      completed++;
-      return;
-    }
+    const status = [
+      row.col4,
+      row.col6,
+      row.col8,
+      row.col10
+    ];
 
-    if(d < today){
-      overdue++;
-    }
-    else if(d >= today && d <= limit){
-      upcoming++;
-    }
+    dates.forEach((dateValue,i)=>{
+
+      if(!dateValue) return;
+
+      if(status[i] === "Completed") return;
+
+      const d = new Date(dateValue);
+      d.setHours(0,0,0,0);
+      
+      const currentYear = today.getFullYear();
+
+if(d < today){
+
+  overdue++;
+
+  overdueList.push({
+    id: row.id,
+    asset: row.asset,
+    date: dateValue
+  });
+
+}
+
+else if(d >= today && d <= limit){
+
+  upcoming++;
+
+  upcomingList.push({
+    id: row.id,
+    asset: row.asset,
+    date: dateValue
+  });
+
+}
+
+    });
 
   });
+  
+  
+const upcomingBody = document.getElementById("upcomingTable");
+
+upcomingList
+.sort((a,b)=> new Date(a.date) - new Date(b.date))
+.slice(0,10)
+.forEach(item=>{
+
+const tr = document.createElement("tr");
+
+tr.innerHTML = `
+<td>${item.id}</td>
+<td>${item.asset}</td>
+<td>${item.date}</td>
+<td><span class="status progress">Upcoming</span></td>
+`;
+
+upcomingBody.appendChild(tr);
+
+});
+
+const overdueBody = document.getElementById("overdueTable");
+
+overdueList
+.sort((a,b)=> new Date(a.date) - new Date(b.date))
+.slice(0,10)
+.forEach(item=>{
+
+const tr = document.createElement("tr");
+
+tr.innerHTML = `
+<td>${item.id}</td>
+<td>${item.asset}</td>
+<td>${item.date}</td>
+<td><span class="status overdue">Overdue</span></td>
+`;
+
+overdueBody.appendChild(tr);
+
+});
 
   document.getElementById("overdueCount").textContent = overdue;
   document.getElementById("upcomingCount").textContent = upcoming;
-  document.getElementById("completedCount").textContent = completed;
   document.getElementById("totalAssets").textContent = assets.length;
+  document.getElementById("completedCount").textContent = completed;
+
 }
 
-document.addEventListener("DOMContentLoaded", loadDashboard);
-  
+
+
+ 
 document.addEventListener("DOMContentLoaded", loadDashboard);
   
 </script>
