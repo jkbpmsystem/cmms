@@ -637,39 +637,47 @@ const data = dwData;
 /* Reset events */
 events = {};
 
-data.forEach(row=>{
+data.forEach(row => {
 
-let color="blue";
+  let color = "blue";
 
-if(row.status=="Completed") color="green";
-if(row.status=="Inspection") color="orange";
-if(row.status=="Breakdown") color="red";
+  const status = row.status || "";
 
-if(!events[row.date]) events[row.date]=[];
+  if(status === "Completed") color = "green";
+  else if(status === "Inspection") color = "orange";
+  else if(status === "Breakdown") color = "red";
 
-const asset = assetMap[row.id] || {};
+  const date = row.date;
 
-events[row.date].push({
-title:row.id,
-equipment:asset.equipmentName || "-",
-type:asset.typeCode || "-",
-start:asset.startDate || "-",
-freq:asset.ppmFrequency || "-",
-color:color
-});
+  if(!date) return;
+
+  if(!events[date]) events[date] = [];
+
+  const asset = assetMap[row.id] || {};
+
+  events[date].push({
+    title: row.id || "-",
+    equipment: asset.equipmentName || "-",
+    type: asset.typeCode || "-",
+    start: asset.startDate || "-",
+    freq: asset.ppmFrequency || "-",
+    color: color
+  });
 
 });
 
 renderCalendar();
-loadUpcomingPM(data.map(r=>{
-const asset = assetMap[r.id] || {};
-return {
-...r,
-equipmentName: asset.equipmentName
-};
-}));
 
-}
+loadUpcomingPM(data.map(r => {
+
+  const asset = assetMap[r.id] || {};
+
+  return {
+    ...r,
+    equipmentName: asset.equipmentName || "-"
+  };
+
+}));
 
 /*Render Calendar*/
 function renderCalendar(){
