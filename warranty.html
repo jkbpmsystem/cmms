@@ -394,10 +394,9 @@ const perPage = 5;
 /*load data asset*/
 async function loadWarranty(){
 
-const res = await fetch("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getAssets");
+const data = await fetchData("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getAssets");
 
-assetData = await res.json();
-const data = assetData;
+if(!data) return;
 
 renderWarranty(data);
 
