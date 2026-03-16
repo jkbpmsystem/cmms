@@ -499,6 +499,45 @@
             background: #00e676;
             color: #000;
         }
+
+.asset-detail-modal{
+max-width:950px;
+}
+
+.asset-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:16px;
+}
+
+.asset-card{
+background:#f9fafb;
+padding:15px;
+border-radius:8px;
+border:1px solid #e5e7eb;
+}
+
+.asset-card h4{
+font-size:14px;
+margin-bottom:10px;
+color:#374151;
+}
+
+.asset-card b{
+font-size:12px;
+color:#6b7280;
+}
+
+.asset-card div{
+margin-bottom:6px;
+font-size:13px;
+font-weight:500;
+}
+
+.asset-card i{
+margin-right:6px;
+color:#2563eb;
+}
     </style>
     <script src="location-data.js" defer></script>
     
@@ -880,34 +919,78 @@ function showDetail(index){
 
 const asset = filteredData[index];
 
-document.getElementById("detailModal").style.display="flex";
+document.getElementById("detailModal").style.display = "flex";
 
-const detail=document.getElementById("assetDetail");
+const detail = document.getElementById("assetDetail");
 
-detail.innerHTML=`
+detail.innerHTML = `
 
-<div class="detail-grid">
+<div class="asset-grid">
+
+<!-- BASIC INFO -->
+<div class="asset-card">
+<h4><i class="fa-solid fa-circle-info"></i> Basic Info</h4>
 
 <b>ID</b><div>${asset.id}</div>
-<b>Code Location</b><div>${asset.codeLocation}</div>
-<b>Area</b><div>${asset.area}</div>
-<b>Department</b><div>${asset.department}</div>
 <b>Asset No</b><div>${asset.assetNo}</div>
 <b>Asset No Hosza</b><div>${asset.assetNoHosza}</div>
 <b>Equipment Name</b><div>${asset.equipmentName}</div>
-<b>Type Code</b><div>${asset.typeCode}</div>
 <b>Description</b><div>${asset.equipmentDescriptions}</div>
+<b>Category</b><div>${asset.category}</div>
+
+</div>
+
+
+<!-- LOCATION -->
+<div class="asset-card">
+<h4><i class="fa-solid fa-location-dot"></i> Location</h4>
+
+<b>Code Location</b><div>${asset.codeLocation}</div>
+<b>Area</b><div>${asset.area}</div>
+<b>Department</b><div>${asset.department}</div>
+
+</div>
+
+
+<!-- TECHNICAL -->
+<div class="asset-card">
+<h4><i class="fa-solid fa-gear"></i> Technical</h4>
+
+<b>Type Code</b><div>${asset.typeCode}</div>
 <b>Discipline</b><div>${asset.discipline}</div>
+<b>Manufacture</b><div>${asset.manufacture}</div>
+<b>Model</b><div>${asset.model}</div>
+<b>Serial Number</b><div>${asset.serialNumber}</div>
+
+</div>
+
+
+<!-- SUPPLIER -->
+<div class="asset-card">
+<h4><i class="fa-solid fa-truck"></i> Supplier</h4>
+
 <b>Bumi</b><div>${asset.bumi}</div>
 <b>Bumi Contact</b><div>${asset.bumiContact}</div>
 <b>Supplier</b><div>${asset.supplier}</div>
 <b>Supplier Contact</b><div>${asset.supplierContact}</div>
-<b>Manufacture</b><div>${asset.manufacture}</div>
-<b>Model</b><div>${asset.model}</div>
-<b>Serial Number</b><div>${asset.serialNumber}</div>
+
+</div>
+
+
+<!-- FINANCIAL -->
+<div class="asset-card">
+<h4><i class="fa-solid fa-money-bill"></i> Financial</h4>
+
 <b>Price</b><div>${asset.price}</div>
 <b>LPO No</b><div>${asset.lpoNo}</div>
-<b>Category</b><div>${asset.category}</div>
+
+</div>
+
+
+<!-- MAINTENANCE -->
+<div class="asset-card">
+<h4><i class="fa-solid fa-screwdriver-wrench"></i> Maintenance</h4>
+
 <b>Start Date</b><div>${formatDate(asset.startDate)}</div>
 <b>End Date</b><div>${formatDate(asset.endDate)}</div>
 <b>PPM Frequency / year</b><div>${asset.ppmFrequency}</div>
@@ -915,10 +998,10 @@ detail.innerHTML=`
 
 </div>
 
+</div>
 `;
 
 }
-
 function closeDetail(){
 document.getElementById("detailModal").style.display = "none";
 }
