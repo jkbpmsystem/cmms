@@ -1,33 +1,64 @@
+/* ===== Loading Screen ===== */
+
 #loadingScreen{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:#020617;
-display:flex;
-flex-direction:column;
-align-items:center;
+background:linear-gradient(135deg,#020617,#020617,#020617);
+display:none;
 justify-content:center;
-z-index:9999;
+align-items:center;
+z-index:99999;
 }
 
-.loader{
-width:40px;
-height:40px;
-border:4px solid #1e293b;
-border-top:4px solid #00e5ff;
-border-radius:50%;
-animation:spin 1s linear infinite;
+/* container */
+.loader-box{
+text-align:center;
 }
 
-@keyframes spin{
-0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}
+/* cube icon */
+.cube{
+font-size:40px;
+color:#00e5ff;
+animation:spinCube 2s linear infinite;
+text-shadow:0 0 10px #00e5ff,0 0 25px #00e5ff55;
 }
 
+/* cube spin */
+@keyframes spinCube{
+0%{transform:rotateY(0deg)}
+100%{transform:rotateY(360deg)}
+}
+
+/* text */
 .loading-text{
-margin-top:10px;
+margin-top:15px;
 font-size:14px;
-opacity:0.7;
+letter-spacing:1px;
+opacity:0.8;
+}
+
+/* progress bar */
+.loading-bar{
+width:200px;
+height:6px;
+background:#0f172a;
+border-radius:10px;
+margin-top:15px;
+overflow:hidden;
+}
+
+.bar{
+height:100%;
+width:40%;
+background:#00e5ff;
+animation:loadingMove 1.5s infinite;
+box-shadow:0 0 10px #00e5ff;
+}
+
+@keyframes loadingMove{
+0%{margin-left:-40%}
+100%{margin-left:100%}
 }
