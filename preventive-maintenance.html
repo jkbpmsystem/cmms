@@ -643,6 +643,7 @@ async function loadEvents(){
 /* GET ASSETS */
 const assets = await fetchData("https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz6EQLj2JAEcTVC2TCFdkPG9CMI6cZ1iHuyTm1ui4QBIlRxg/exec?action=getAssets");
 
+  
 /* Map Asset */
 assetMap = {};
 
@@ -652,7 +653,7 @@ assetMap[a.id] = a;
 
 /* GET DW */
 dwData = await fetchData("https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz6EQLj2JAEcTVC2TCFdkPG9CMI6cZ1iHuyTm1ui4QBIlRxg/exec?action=getDWList");
-
+const data = dwData;
 
 /* Reset events */
 events = {};
