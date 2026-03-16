@@ -9,6 +9,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
 
+<script src="js/loading.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -619,8 +620,7 @@ items.forEach(item=>{
 async function loadEvents(){
 
 /* GET ASSETS */
-const resAssets = await fetch("https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz6EQLj2JAEcTVC2TCFdkPG9CMI6cZ1iHuyTm1ui4QBIlRxg/exec?action=getAssets");
-const assets = await resAssets.json();
+const assets = await fetchData("https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz6EQLj2JAEcTVC2TCFdkPG9CMI6cZ1iHuyTm1ui4QBIlRxg/exec?action=getAssets");
 
 /* Map Asset */
 assetMap = {};
@@ -630,9 +630,8 @@ assetMap[a.id] = a;
 });
 
 /* GET DW */
-const resDW = await fetch("https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz6EQLj2JAEcTVC2TCFdkPG9CMI6cZ1iHuyTm1ui4QBIlRxg/exec?action=getDWList");
-dwData = await resDW.json();
-const data = dwData;
+dwData = await fetchData("https://script.google.com/macros/s/AKfycbyLxPzgzonubQGqgRoLqsuz6EQLj2JAEcTVC2TCFdkPG9CMI6cZ1iHuyTm1ui4QBIlRxg/exec?action=getDWList");
+
 
 /* Reset events */
 events = {};
