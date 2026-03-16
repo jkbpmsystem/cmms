@@ -654,8 +654,7 @@ const rowsPerPage = 15;
 
 async function loadAssets(){
 
-  const res = await fetch(API_URL + "?action=getAssets&t=" + Date.now());
-  assetData = await res.json();
+assetData = await fetchData(API_URL + "?action=getAssets&t=" + Date.now());
 
   assetData.sort((a,b)=> b.id.localeCompare(a.id));
 
