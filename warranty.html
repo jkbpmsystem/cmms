@@ -384,7 +384,8 @@ background:#00e5ff22;
 
 let duringData = [];
 let postData = [];
-
+let assetData = [];
+  
 let duringPage = 1;
 let postPage = 1;
 
@@ -394,11 +395,18 @@ const perPage = 5;
 /*load data asset*/
 async function loadWarranty(){
 
+showLoading();
+
 const data = await fetchData("https://script.google.com/macros/s/AKfycbwHDAybRqO3zs6SXSaP3wQcdkNH9bU6v2QAGNy2yKT2GqfRRfcOczkCCI94oWxZEVcbPw/exec?action=getAssets");
 
-if(!data) return;
+if(!data){
+hideLoading();
+return;
+}
 
 renderWarranty(data);
+
+hideLoading();
 
 }
 
