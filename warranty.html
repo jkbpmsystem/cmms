@@ -442,7 +442,8 @@ return;
 renderWarranty(data);
 
 hideLoading();
-
+assetData = data;
+  
 }
 
 /*pisah warranty*/
@@ -562,12 +563,12 @@ const end = start+perPage;
 
 const pageData = duringData.slice(start,end);
 
-pageData.forEach(asset=>{
+pageData.forEach((asset,index)=>{
 
 table.innerHTML += `
 <tr>
-<td onclick='showDetail(${JSON.stringify(row)})' style="cursor:pointer;color:#00e5ff;">
-${row.id}
+td onclick="showDetail(${start + index})" style="cursor:pointer;color:#00e5ff;">
+${asset.id}
 </td>
 <td>${asset.equipmentName || "-"}</td>
 <td>${formatDate(asset.startDate)}</td>
@@ -680,7 +681,9 @@ renderPostTable();
 }
 
 /**/
-function showDetail(asset){
+function showDetail(index){
+
+const asset = duringData[index];
 
 document.getElementById("detailModal").style.display="flex";
 
@@ -694,8 +697,8 @@ detail.innerHTML=`
 <h4><i class="fa-solid fa-circle-info"></i> Basic Info</h4>
 
 <b>ID</b><div>${asset.id}</div>
-<b>Asset No</b><div>${asset.assetNo}</div>
-<b>Equipment Name</b><div>${asset.equipmentName}</div>
+<b>Asset No</b><div>${asset.assetNo || "-"}</div>
+<b>Equipment Name</b><div>${asset.equipmentName || "-"}</div>
 
 </div>
 
@@ -704,7 +707,6 @@ detail.innerHTML=`
 `;
 
 }
-
 function closeAssetDetail(){
 document.getElementById("detailModal").style.display="none";
 }
