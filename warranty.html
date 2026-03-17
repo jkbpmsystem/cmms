@@ -536,7 +536,7 @@ Status: "Expired"
 
 }
 
-
+});
 
 /* convert to CSV */
 let csv = "ID,Equipment,Start Date,End Date,Status\n";
@@ -598,10 +598,9 @@ ${asset.id}
 <td><span class="badge ${asset.statusClass}">${asset.statusText}</span></td>
 </tr>
 `;
-
+});
 renderDuringPagination();
 
-}
 
 /*rendertablepost*/
 function renderPostTable(){
