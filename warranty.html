@@ -262,6 +262,41 @@ cursor:pointer;
 background:#00e5ff22;
 }
 
+/**/
+.asset-detail-modal{
+max-width:950px;
+}
+
+.asset-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:16px;
+}
+
+.asset-card{
+background:#0b1421;
+padding:15px;
+border-radius:10px;
+border:1px solid #00e5ff22;
+}
+
+.asset-card h4{
+font-size:14px;
+margin-bottom:10px;
+color:#00e5ff;
+}
+
+.asset-card b{
+font-size:12px;
+color:#7aa9c4;
+}
+
+.asset-card div{
+margin-bottom:6px;
+font-size:13px;
+font-weight:500;
+color:#d9f3ff;
+}
   
 </style>
 </head>
@@ -531,7 +566,9 @@ pageData.forEach(asset=>{
 
 table.innerHTML += `
 <tr>
-<td>${asset.id}</td>
+<td onclick='showDetail(${JSON.stringify(row)})' style="cursor:pointer;color:#00e5ff;">
+${row.id}
+</td>
 <td>${asset.equipmentName || "-"}</td>
 <td>${formatDate(asset.startDate)}</td>
 <td>${formatDate(asset.endDate)}</td>
@@ -641,6 +678,36 @@ postPage=p;
 renderPostTable();
 
 }
+
+/**/
+function showDetail(asset){
+
+document.getElementById("detailModal").style.display="flex";
+
+const detail=document.getElementById("assetDetail");
+
+detail.innerHTML=`
+
+<div class="asset-grid">
+
+<div class="asset-card">
+<h4><i class="fa-solid fa-circle-info"></i> Basic Info</h4>
+
+<b>ID</b><div>${asset.id}</div>
+<b>Asset No</b><div>${asset.assetNo}</div>
+<b>Equipment Name</b><div>${asset.equipmentName}</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+function closeAssetDetail(){
+document.getElementById("detailModal").style.display="none";
+}
   
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -649,6 +716,21 @@ loadWarranty();
 });
 
 </script>
+
+<div class="modal" id="detailModal">
+
+  <div class="modal-content asset-detail-modal">
+
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-cube"></i> Asset Detail</h3>
+      <span class="close-btn" onclick="closeAssetDetail()">&times;</span>
+    </div>
+
+    <div class="modal-body" id="assetDetail"></div>
+
+  </div>
+
+</div>
   </body>
 </html>
 
