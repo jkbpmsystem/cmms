@@ -726,7 +726,16 @@ if(daysLeft < 0){
   statusText="Active";
 }
 
-detail.innerHTML=`
+detail.innerHTML = `
+
+<!-- TAB SWITCH -->
+<div class="tab-header">
+  <button class="tab-btn active" data-tab="info">Info</button>
+  <button class="tab-btn" data-tab="ppm">PPM</button>
+</div>
+
+<!-- INFO TAB (ASAL KAU) -->
+<div class="tab-content active" id="info">
 
 <div class="asset-grid">
 
@@ -794,6 +803,22 @@ detail.innerHTML=`
 <b>Status</b>
 <div><span class="badge ${statusClass}">${statusText}</span></div>
 <b>Days Left</b><div>${daysLeft} days</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- PPM TAB -->
+<div class="tab-content" id="ppm">
+
+<div class="asset-card">
+<h4>PPM Schedule</h4>
+
+<b>Frequency</b><div>${asset.ppmFrequency || "-"}</div>
+<b>Last Service</b><div>${formatDate(asset.lastServiceDate)}</div>
+<b>Next Due</b><div>${formatDate(asset.nextServiceDate)}</div>
+<b>Status</b><div>${asset.ppmStatus || "-"}</div>
 
 </div>
 
