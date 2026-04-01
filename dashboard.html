@@ -340,31 +340,7 @@ td{
       </div>
   </div>
 
-    <!-- Table -->
-<div class="table-box">
-
-<div class="chart-title">Upcoming PPM</div>
-
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Equipment Name</th>
-<th>Date</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody id="upcomingTable"></tbody>
-</table>
-
-<br>
-
-/*<div class="chart-title">Overdue PM</div>
-
-
-
-</div>
+    
 
   
 
@@ -479,7 +455,7 @@ const tr=document.createElement("tr");
 
 tr.innerHTML=`
 <td>${r.id}</td>
-<td>${asset.equipmentName}</td>
+<td>${r.equipmentName}</td>
 <td>${r.date}</td>
 <td><span class="status progress">Upcoming</span></td>
 `;
