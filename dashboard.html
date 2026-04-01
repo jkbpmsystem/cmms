@@ -441,8 +441,8 @@ async function loadDashboard(){
   /* KPI dari dashboard API */
  const data = await fetchData(API_URL + "?action=getDashboard");
 
-  document.getElementById("overdueCount").textContent = data.overdue;
-  document.getElementById("completedCount").textContent = data.completed;
+  /*document.getElementById("overdueCount").textContent = data.overdue;*/
+  /*document.getElementById("completedCount").textContent = data.completed;*/
   document.getElementById("totalAssets").textContent = data.totalAssets;
 
   /* ambil DW list sama seperti PPM page */
