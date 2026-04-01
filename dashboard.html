@@ -291,10 +291,7 @@ td{
     <span>PPM</span>
   </a>
 
-  <a href="statutory.html" class="side-item">
-    <i class="fa-solid fa-clipboard-list"></i>
-    <span>Statutory</span>
-  </a>
+  
 </div>
   
   <!-- Main -->
@@ -456,7 +453,7 @@ async function loadDashboard(){
   limit.setDate(today.getDate()+30);
 
   const upcoming = [];
-  const overdue = [];
+  /*const overdue = [];*/
 
   dw.forEach(r=>{
 
@@ -479,7 +476,7 @@ async function loadDashboard(){
   document.getElementById("upcomingCount").textContent = upcoming.length;
 
   renderUpcoming(upcoming);
-  renderOverdue(overdue);
+ /* renderOverdue(overdue);*/
 
 }
 
